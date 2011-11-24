@@ -55,8 +55,4 @@ taglib uri="/tld/ala.tld" prefix="ala" %>
     </head>
     <body id="cas" class="page page-id-1485 page-child parent-pageid-81 page-template page-template-default one-column">
         <div id="wrapper">
-            <c:if test="${empty param.format || param.format != 'minimal'}"><ala:bannerMenu/></c:if>
-            <div id="loginId">testing</div>
-            <c:if test="${!empty pageContext.request.remoteUser}">
-                 <div id="loginId">You are logged in as: ${pageContext.request.remoteUser}</div>
-             </c:if>
+            <c:if test="${empty param.format || param.format != 'minimal'}"><ala:bannerMenu/></c:if>            

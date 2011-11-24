@@ -1,5 +1,13 @@
 <%@ include file="/WEB-INF/views/common/top.jsp"%>
 <div id="content">
+        <c:choose>
+            <c:when test="${!empty pageContext.request.remoteUser}">
+                <div id="loginId">You are logged in as: ${pageContext.request.remoteUser}</div>
+            </c:when>
+            <c:otherwise>
+                <div id="loginId">No user logged in.</div>
+            </c:otherwise>
+        </c:choose>
     <div id="header">
         <h1>ALA WS Client Application list</h1>
     </div><!--close header-->
