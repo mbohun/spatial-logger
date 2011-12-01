@@ -36,7 +36,10 @@ public interface ActionDAO {
     
     public List<Breakdown> getActionBreakdownByType();
     public List<Breakdown> getActionBreakdownByDay();
+    public List<Breakdown> getActionBreakdownByDayUser(String email);
     public List<Breakdown> getActionBreakdownBy(String breakdown, String by);
+    public List<Breakdown> getActionBreakdownUserBy(String email, String breakdown, String by);
     
     public List<Session> getActionsBySessions();
+    public List<Session> getActionsBySessionsByUser(String email);
 }

@@ -19,6 +19,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!-- Enables clean URLs with JSP views e.g. /welcome instead of /app/welcome -->
+    <!--
     <filter>
         <filter-name>UrlRewriteFilter</filter-name>
         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -26,7 +27,24 @@
     <filter-mapping>
         <filter-name>UrlRewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    -->
+
+
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+	
+
+
+
+
+
+
     <!-- //// -->
     <!-- //// -->
     <!-- Handles all requests into the application -->
@@ -43,7 +61,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
@@ -51,7 +69,7 @@
     <!-- /////////// -->
     <!-- Miscellaneous -->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file></welcome-file>
     </welcome-file-list>
     <!--
     <listener>
@@ -66,7 +84,7 @@
     <context-param>
         <!-- Parameter used by CAS filters -->
         <param-name>serverName</param-name>
-        <param-value>http://localhost:8080</param-value>
+        <param-value>http://spatial-dev.ala.org.au</param-value>
     </context-param>
 
     <!-- CAS filter context path - for local development - there is no context for production deployment -->
@@ -82,7 +100,13 @@
 
     <context-param>
         <param-name>uriFilterPattern</param-name>
-        <param-value>/, /logs</param-value>
+        <!-- <param-value>/logs, /dashboard, /actions/.+</param-value> -->
+        <param-value>/.+</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>uriExclusionFilterPattern</param-name>
+        <param-value>/log/action, /static/.+</param-value>
     </context-param>
 
     <!-- CAS Authentication Service filters -->

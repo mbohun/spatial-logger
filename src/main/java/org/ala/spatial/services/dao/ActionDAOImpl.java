@@ -12,7 +12,6 @@
  *  implied. See the License for the specific language governing
  *  rights and limitations under the License.
  ***************************************************************************/
-
 package org.ala.spatial.services.dao;
 
 import com.sun.media.sound.AlawCodec;
@@ -41,12 +40,10 @@ import org.ala.spatial.services.dto.Session;
  *
  * @author ajay
  */
-
 @org.springframework.stereotype.Service("actionDao")
 public class ActionDAOImpl implements ActionDAO {
 
     private static final Logger logger = Logger.getLogger(ActionDAOImpl.class);
-
     private SimpleJdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert insertAction;
     private SimpleJdbcInsert insertService;
@@ -78,7 +75,7 @@ public class ActionDAOImpl implements ActionDAO {
     @Override
     public void updateActionStatus(String pid, String status) {
         Service s = getServiceByProcessid(pid);
-        if (s!=null) {
+        if (s != null) {
             String sql = "UPDATE services SET status = ? WHERE processid = ?";
             Map<String, String> args = new HashMap<String, String>();
             args.put("status", status);
@@ -92,7 +89,7 @@ public class ActionDAOImpl implements ActionDAO {
     public List<Action> getActions() {
         logger.info("Getting a list of all actions");
         String sql = "select * from actionservices";
-        return jdbcTemplate.query(sql, new ActionServiceMapper()); 
+        return jdbcTemplate.query(sql, new ActionServiceMapper());
     }
 
 //    @Override
@@ -137,7 +134,11 @@ public class ActionDAOImpl implements ActionDAO {
         String sql = "select * from actions where serviceid = ?";
         List<Action> l = jdbcTemplate.query(sql, new ActionMapper(), serviceid);
         if (l.size() > 0) {
-            return l.get(0);
+            Action action = l.get(0);
+            if (action != null) {
+                action.setService(getService(action.getServiceid()));
+            }
+            return action;
         } else {
             return null;
         }
@@ -159,9 +160,12 @@ public class ActionDAOImpl implements ActionDAO {
 
     @Override
     public List<Action> getActionsByEmail(String email) {
+//        logger.info("Getting a list of all actions for an email");
+//        String sql = "select * from actions where email = ?";
+//        return jdbcTemplate.query(sql, new ActionMapper(), email);
         logger.info("Getting a list of all actions for an email");
-        String sql = "select * from actions where email = ?";
-        return jdbcTemplate.query(sql, new ActionMapper(), email);
+        String sql = "select * from actionservices where email = ?";
+        return jdbcTemplate.query(sql, new ActionServiceMapper(), email);
     }
 
     @Override
@@ -179,21 +183,49 @@ public class ActionDAOImpl implements ActionDAO {
     }
 
     @Override
+    public List<Breakdown> getActionBreakdownByDayUser(String email) {
+        logger.info("Getting a breakdown of all actions for " + email + " grouped by day");
+        String sql = "select cast(time as date) as label, count(*) from actions where email = ? group by label;";
+        return jdbcTemplate.query(sql, new BreakdownMapper(), email);
+    }
+
+    @Override
     public List<Breakdown> getActionBreakdownBy(String breakdown, String by) {
+        return getActionBreakdownByWithUser("", breakdown, by);
+    }
+
+    @Override
+    public List<Breakdown> getActionBreakdownUserBy(String email, String breakdown, String by) {
+        return getActionBreakdownByWithUser(email, breakdown, by);
+    }
+
+    private List<Breakdown> getActionBreakdownByWithUser(String email, String breakdown, String by) {
         List<Breakdown> bdList;
         String colName = breakdown.toLowerCase();
         if (colName.toLowerCase().equals("layers")) {
             colName = "regexp_split_to_table(layers, ':')";
-        } 
+        }
         String sql = "";
-        if (colName.equals("category1") && !by.trim().equals("")) {
-            logger.info("Getting a breakdown of all actions grouped by " + breakdown + " = " + by);
-            sql = "select category2 as label, count(*) from actionservices where category1 = ? group by label;";
-            bdList = jdbcTemplate.query(sql, new BreakdownMapper(), by);
+        if (email.trim().equals("")) {
+            if (colName.equals("category1") && !by.trim().equals("")) {
+                logger.info("Getting a breakdown of all actions grouped by " + breakdown + " = " + by);
+                sql = "select category2 as label, count(*) from actionservices where category1 = ? group by label;";
+                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), by);
+            } else {
+                logger.info("Getting a breakdown of all actions grouped by " + breakdown);
+                sql = "select " + colName + " as label, count(*) from actionservices group by label;";
+                bdList = jdbcTemplate.query(sql, new BreakdownMapper());
+            }
         } else {
-            logger.info("Getting a breakdown of all actions grouped by " + breakdown);
-            sql = "select " + colName + " as label, count(*) from actionservices group by label;";
-            bdList = jdbcTemplate.query(sql, new BreakdownMapper());
+            if (colName.equals("category1") && !by.trim().equals("")) {
+                logger.info("Getting a breakdown of all actions for " + email + " grouped by " + breakdown + " = " + by);
+                sql = "select category2 as label, count(*) from actionservices where category1 = ? and email = ? group by label;";
+                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), by, email);
+            } else {
+                logger.info("Getting a breakdown of all actions " + email + " grouped by " + breakdown);
+                sql = "select " + colName + " as label, count(*) from actionservices where email = ? group by label;";
+                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), email);
+            }
         }
         return bdList;
     }
@@ -205,7 +237,12 @@ public class ActionDAOImpl implements ActionDAO {
         return jdbcTemplate.query(sql, new SessionMapper());
     }
 
-
+    @Override
+    public List<Session> getActionsBySessionsByUser(String email) {
+        logger.info("Getting sessions lists");
+        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime from actionservices where email=? group by sessionid;";
+        return jdbcTemplate.query(sql, new SessionMapper(), email);
+    }
 
     private static final class ActionMapper implements RowMapper<Action> {
 
@@ -224,6 +261,7 @@ public class ActionDAOImpl implements ActionDAO {
             return action;
         }
     }
+
     private static final class ServiceMapper implements RowMapper<Service> {
 
         public Service mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -240,6 +278,7 @@ public class ActionDAOImpl implements ActionDAO {
             return service;
         }
     }
+
     private static final class ActionServiceMapper implements RowMapper<Action> {
 
         public Action mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -269,6 +308,7 @@ public class ActionDAOImpl implements ActionDAO {
             return action;
         }
     }
+
     private static final class BreakdownMapper implements RowMapper<Breakdown> {
 
         public Breakdown mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -278,6 +318,7 @@ public class ActionDAOImpl implements ActionDAO {
             return breakdown;
         }
     }
+
     private static final class SessionMapper implements RowMapper<Session> {
 
         public Session mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -288,5 +329,4 @@ public class ActionDAOImpl implements ActionDAO {
             return session;
         }
     }
-
 }

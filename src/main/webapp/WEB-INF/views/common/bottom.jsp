@@ -30,5 +30,11 @@
     </div><!--close footer-->
 </c:if>
 </div><!--close wrapper-->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.nav-logout a')[0].href = "${pageContext.request.contextPath}/logout";
+    });
+</script>
 </body>
 </html>

@@ -26,8 +26,8 @@ taglib uri="/tld/ala.tld" prefix="ala" %>
         <link rel="stylesheet" type="text/css" media="screen" href="https://www.ala.org.au/wp-content/themes/ala/css/highlights.css" />
         <%-- <link type="text/css" rel="stylesheet" href="<spring:theme code="standard.custom.css.file" />" /> --%>
         <link rel="stylesheet" type="text/css" media="screen" href="http://biocache.ala.org.au/static/css/tabs-no-images.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="/actions/styles/styles.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="/actions/styles/demo_table.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/static/styles/styles.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/static/styles/demo_table.css" />
 
         <!--
         <script type="text/javascript" src="js/common_rosters.js"></script>
@@ -35,7 +35,7 @@ taglib uri="/tld/ala.tld" prefix="ala" %>
         -->
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="/actions/scripts/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/scripts/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript">
             google.load("visualization", "1", {packages:["corechart", "annotatedtimeline"]});
@@ -55,4 +55,4 @@ taglib uri="/tld/ala.tld" prefix="ala" %>
     </head>
     <body id="cas" class="page page-id-1485 page-child parent-pageid-81 page-template page-template-default one-column">
         <div id="wrapper">
-            <c:if test="${empty param.format || param.format != 'minimal'}"><ala:bannerMenu/></c:if>            
+            <c:if test="${empty param.format || param.format != 'minimal'}"><ala:bannerMenu returnUrlPath="http://spatial-dev.ala.org.au/actions/dashboard" /></c:if>

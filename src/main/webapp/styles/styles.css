@@ -38,3 +38,32 @@ input.required {border-width:1px;}
 
 .link {color: #01716E;cursor: pointer;}
 
+
+
+
+
+#panelwrapper .panel {
+    width: 300px;
+    height: 300px;
+
+    float: left;
+    margin: 10px;
+
+    border: 2px solid #000;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+.panel .panelhead {
+    border-bottom: 2px solid #000;    
+}
+.panel div {
+    padding: 4px 4px 4px 14px;    
+}
+.panelcontent ul li {
+    list-style: circle;
+}
+.panelcontent ul li.last {
+    float: right;
+    list-style: none;
+}

@@ -14,6 +14,10 @@
 
     <div class="section">
 
+            <span style="float: right; padding-right: 30px">
+                <a href="/actions/dashboard">Dashboard</a>
+            </span>
+
         <c:choose>
             <c:when test="${fn:length(actions) > 0}">
                 <div id="resultsReturned">
@@ -140,7 +144,7 @@
                     
                     function loadCharts() {
                         $.ajax({
-                            url: "/actions/actions/breakdown.json",
+                            url: "/actions/actions/breakdown.json?usr=all",
                             dataType: 'json',
                             timeout: 30000,
                             complete: function(jqXHR, textStatus) {
@@ -172,7 +176,7 @@
                         if ($.trim(by) != "") {
                             url += "/"+by
                         }
-                        url += ".json"; 
+                        url += ".json?usr=all";
                         $.ajax({
                             url: url,
                             dataType: 'json',

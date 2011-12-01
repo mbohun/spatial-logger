@@ -15,17 +15,21 @@
 
 package org.ala.spatial.services.web;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import org.ala.spatial.services.dao.ActionDAO;
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Service;
 import org.ala.spatial.services.dto.Session;
+import org.ala.spatial.services.utils.Utilities;
 import org.apache.log4j.Logger;
+import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +52,8 @@ public class PageController {
     private final String LOG_UPDATE = "/log/update/{pid}/{status}";
     private final String VIEW_ACTION = "/log/view/{id}";
     private final String VIEW_ACTIONS = "/logs";
+
+    private final String LOGOUT = "/logout";
 
     @Resource(name = "actionDao")
     private ActionDAO actionDao;
@@ -114,7 +120,7 @@ public class PageController {
         action.setService(service);
 
         actionDao.addAction(action);
-
+        
         return "action request logged";
     }
 
@@ -136,21 +142,14 @@ public class PageController {
     @RequestMapping(value = VIEW_ACTIONS)
     public ModelAndView viewLogs(HttpServletRequest req) {
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("Authentication details");
-        if(req.getUserPrincipal() != null) {
-            System.out.println("req.getUserPrincipal().getName(): " + req.getUserPrincipal().getName());
-        } else {
-            System.out.println("No user principal. ");
-        }
-        String remoteuser = req.getRemoteUser();
-        if (remoteuser == null) {
-            System.out.println("Got remote user: " + remoteuser);
-        } else {
-            System.out.println("No remote user. :(");
-        }
+        if (!Utilities.isUserAdmin(req)) {
+            //ModelAndView mv = new ModelAndView("dashboard/types");
+            //mv.addAttribute("error", "authentication");
+            //mv.addAttribute("message", "Please authenticate yourself with the ALA system");
+            //return mv;
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
+        }
 
 
         List<Action> actions = actionDao.getActions();
@@ -172,4 +171,10 @@ public class PageController {
         return m;
     }
 
+    @RequestMapping(value = LOGOUT)
+    public ModelAndView userLogout(HttpServletRequest req) {
+        req.getSession(false).invalidate();
+        return new ModelAndView("redirect:https://auth.ala.org.au/cas/logout?url=http://spatial-dev.ala.org.au/actions/");
+
+    }
 }
