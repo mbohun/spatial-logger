@@ -1,22 +1,22 @@
 <%@ include file="/WEB-INF/views/common/top.jsp"%>
 <div id="content">
-        <c:choose>
-            <c:when test="${!empty pageContext.request.remoteUser}">
-                <div id="loginId">You are logged in as: ${pageContext.request.remoteUser}</div>
-            </c:when>
-            <c:otherwise>
-                <div id="loginId">No user logged in.</div>
-            </c:otherwise>
-        </c:choose>
+    <c:choose>
+        <c:when test="${!empty pageContext.request.remoteUser}">
+            <div id="loginId">You are logged in as: ${pageContext.request.remoteUser}</div>
+        </c:when>
+        <c:otherwise>
+            <div id="loginId">No user logged in.</div>
+        </c:otherwise>
+    </c:choose>
     <div id="header">
         <h1>ALA WS Client Application list</h1>
     </div><!--close header-->
 
     <div class="section">
 
-            <span style="float: right; padding-right: 30px">
-                <a href="/actions/dashboard">Dashboard</a>
-            </span>
+        <span style="float: right; padding-right: 30px">
+            <a href="/actions/dashboard">Dashboard</a>
+        </span>
 
         <c:choose>
             <c:when test="${fn:length(actions) > 0}">
@@ -110,7 +110,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
 
                 <script>
@@ -133,7 +133,7 @@
                                     if (!backLink.hasClass('link')) return;
 
                                     backLink.html("Click a slice to drill into the next category.").removeClass('link');
-                                    loadBreakdownByChart("category1","","backLink");
+                                    loadBreakdownByChart("category1","");
                                 });
                             }
                         });
@@ -296,10 +296,13 @@
                         
                         google.visualization.events.addListener(breakdownChart, 'select', function() {
                             if (backLink.hasClass('link')) return;
-                            backLink.html("&laquo; Previous category").addClass('link');
                             var category = breakdownTable.getValue(breakdownChart.getSelection()[0].row,0);
-                            loadBreakdownByChart("category1", category, "select");
-                                
+                            if(category=="Species") {
+                                alert("No breakdowns available for Species");
+                            } else {
+                                loadBreakdownByChart("category1", category);
+                                backLink.html("&laquo; Previous category").addClass('link');
+                            }
                         });
 
                         //                        var areaChart = new google.visualization.PieChart(document.getElementById('areaChart'));
