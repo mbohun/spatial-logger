@@ -67,8 +67,9 @@
 
                     <div id="tabs-2" class="paneDiv">
                         <div id="charts">
+                            <div class="backLink" style="padding-top: 50px">Click a slice to drill into the next category</div>
                             <div id="breakdownChart"></div>
-                            <div id="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
+                            <div class="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
                             <div id="areaChart"></div>
                             <div id="analysisChart"></div>
                             <div style="width: 700px; height: 500px;">
@@ -126,7 +127,7 @@
                                         loadBreakdownByChart("category1");
                                     }
                                 }
-                                backLink = $("#backLink");
+                                backLink = $(".backLink");
                                 backLink.click(function(){
                                     // only act if link was real
                                     if (!backLink.hasClass('link')) return;

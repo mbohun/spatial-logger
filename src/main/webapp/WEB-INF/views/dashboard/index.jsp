@@ -178,7 +178,7 @@
 
             <div id="tabs-2" class="paneDiv">
                 <div id="charts">
-                    <div class="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
+                    <div class="backLink" style="padding-top: 50px">Click a slice to drill into the next category</div>
                     <div id="breakdownChart"></div>
                     <div class="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
                     <div id="areaChart"></div>
