@@ -163,6 +163,7 @@ public class PageController {
             String[] mal = session.getTasks().split(",");
 
             for (String s : mal) {
+                System.out.println("Checking task: " + s);
                 session.incrementCount(s);
             }
         }

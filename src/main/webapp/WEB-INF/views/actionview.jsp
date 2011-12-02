@@ -18,6 +18,10 @@
                     ${action.type}
                 </p>
                 <p>
+                    <span class="title">Process ID:</span> <br />
+                    ${action.service.processid}
+                </p>
+                <p>
                     <span class="title">Species:</span> <br />
                     <c:if test="${fn:length(action.service.specieslsid) > 0}">
                         <a href="http://bie.ala.org.au/species/${action.service.specieslsid}">${action.service.specieslsid}</a>
@@ -37,6 +41,14 @@
                             No layers selected
                         </c:otherwise>
                     </c:choose>
+                </p>
+                <p>
+                    <span class="title">Area WKT:</span> <br />
+                    <a href="#" id="button">Toggle Area WKT</a> <br />
+                    <div id="areawkt" style="width: 650px; height: 300px; overflow: scroll; font-family: monospace; display: none">
+                        ${action.service.area}
+                    </div>
+                    
                 </p>
                 <p>
                     <span class="title">Extra options:</span> <br />
@@ -72,6 +84,24 @@
 
 
     </div>
+
+    <script>
+        $(function() {
+		function toggleWkt() {
+			// most effect types need no options passed by default
+			var options = {};
+
+			// run the effect
+			$( "#areawkt" ).toggle( "blind", options, 500 );
+		};
+
+		// set effect from select menu value
+		$( "#button" ).click(function() {
+			toggleWkt();
+			return false;
+		});
+	});
+    </script>
 
 </div><!--close content-->
 <%@ include file="/WEB-INF/views/common/bottom.jsp"%>

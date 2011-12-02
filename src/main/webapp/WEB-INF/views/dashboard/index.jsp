@@ -50,7 +50,7 @@
                                         <c:forEach var="a" items="${speciesList}" end="10">
                                             <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
                                         </c:forEach>
-                                        <c:if test="${fn:length(speciesList) > 20}">
+                                        <c:if test="${fn:length(speciesList) > 10}">
                                             <li class="last"><a href="/actions/dashboard/types/species">view more...</a></li>
                                         </c:if>
                                     </ul>
@@ -72,7 +72,7 @@
                                         <c:forEach var="a" items="${areaList}" end="10">
                                             <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
                                         </c:forEach>
-                                        <c:if test="${fn:length(areaList) > 20}">
+                                        <c:if test="${fn:length(areaList) > 10}">
                                             <li class="last"><a href="/actions/dashboard/types/area">view more...</a></li>
                                         </c:if>
                                     </ul>
@@ -94,7 +94,7 @@
                                         <c:forEach var="a" items="${layerList}" end="10">
                                             <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
                                         </c:forEach>
-                                        <c:if test="${fn:length(layerList) > 20}">
+                                        <c:if test="${fn:length(layerList) > 10}">
                                             <li class="last"><a href="/actions/dashboard/types/layer">view more...</a></li>
                                         </c:if>
                                     </ul>
@@ -116,7 +116,7 @@
                                         <c:forEach var="a" items="${toolList}" end="10">
                                             <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
                                         </c:forEach>
-                                        <c:if test="${fn:length(toolList) > 20}">
+                                        <c:if test="${fn:length(toolList) > 10}">
                                             <li class="last"><a href="/actions/dashboard/types/tool">view more...</a></li>
                                         </c:if>
                                     </ul>
@@ -138,7 +138,7 @@
                                         <c:forEach var="a" items="${importList}" end="10">
                                             <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
                                         </c:forEach>
-                                        <c:if test="${fn:length(importList) > 20}">
+                                        <c:if test="${fn:length(importList) > 10}">
                                             <li class="last"><a href="/actions/dashboard/types/import">view more...</a></li>
                                         </c:if>
                                     </ul>
@@ -160,7 +160,7 @@
                                         <c:forEach var="a" items="${exportList}" end="10">
                                             <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
                                         </c:forEach>
-                                        <c:if test="${fn:length(exportList) > 20}">
+                                        <c:if test="${fn:length(exportList) > 10}">
                                             <li class="last"><a href="/actions/dashboard/types/export">view more...</a></li>
                                         </c:if>
                                     </ul>
@@ -178,8 +178,9 @@
 
             <div id="tabs-2" class="paneDiv">
                 <div id="charts">
+                    <div class="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
                     <div id="breakdownChart"></div>
-                    <div id="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
+                    <div class="backLink" style="padding-bottom: 50px">Click a slice to drill into the next category</div>
                     <div id="areaChart"></div>
                     <div id="analysisChart"></div>
                     <div style="width: 700px; height: 500px;">
@@ -199,6 +200,8 @@
                             <th>Layers</th>
                             <th>Areas</th>
                             <th>Tools</th>
+                            <th>Imports</th>
+                            <th>Exports</th>
                             <th>Time spent</th>
                         </tr>
                     </thead>
@@ -210,6 +213,8 @@
                                 <td>${s.layerCount}</td>
                                 <td>${s.areaCount}</td>
                                 <td>${s.toolCount}</td>
+                                <td>${s.importCount}</td>
+                                <td>${s.exportCount}</td>
                                 <td>${s.displaytime}</td>
                             </tr>
                         </c:forEach>
@@ -234,7 +239,7 @@
                                 loadBreakdownByChart("category1");
                             }
                         }
-                        backLink = $("#backLink");
+                        backLink = $(".backLink");
                         backLink.click(function(){
                             // only act if link was real
                             if (!backLink.hasClass('link')) return;

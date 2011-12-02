@@ -88,6 +88,8 @@
                                     <th>Layers</th>
                                     <th>Areas</th>
                                     <th>Tools</th>
+                                    <th>Imports</th>
+                                    <th>Exports</th>
                                     <th>Time spent</th>
                                 </tr>
                             </thead>
@@ -99,6 +101,8 @@
                                         <td>${s.layerCount}</td>
                                         <td>${s.areaCount}</td>
                                         <td>${s.toolCount}</td>
+                                        <td>${s.importCount}</td>
+                                        <td>${s.exportCount}</td>
                                         <td>${s.displaytime}</td>
                                     </tr>
                                 </c:forEach>

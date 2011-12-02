@@ -169,6 +169,16 @@ public class ActionDAOImpl implements ActionDAO {
     }
 
     @Override
+    public List<Action> getActionsByEmailAndCategory1(String email, String category1) {
+//        logger.info("Getting a list of all actions for an email");
+//        String sql = "select * from actions where email = ?";
+//        return jdbcTemplate.query(sql, new ActionMapper(), email);
+        logger.info("Getting a list of all actions for an email");
+        String sql = "select * from actionservices where email = ? and lower(category1)=? ";
+        return jdbcTemplate.query(sql, new ActionServiceMapper(), email, category1.toLowerCase());
+    }
+
+    @Override
     public List<Breakdown> getActionBreakdownByType() {
         logger.info("Getting a breakdown of all actions grouped by type");
         String sql = "select type as label, count(*) from actions group by type;";

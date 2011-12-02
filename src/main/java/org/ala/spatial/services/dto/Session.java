@@ -30,6 +30,8 @@ public class Session {
     private int speciesCount;
     private int areaCount;
     private int toolCount;
+    private int importCount;
+    private int exportCount;
     private String displaytime;
 
     public String getSessionid() {
@@ -89,6 +91,22 @@ public class Session {
         this.toolCount = toolCount;
     }
 
+    public int getExportCount() {
+        return exportCount;
+    }
+
+    public void setExportCount(int exportCount) {
+        this.exportCount = exportCount;
+    }
+
+    public int getImportCount() {
+        return importCount;
+    }
+
+    public void setImportCount(int importCount) {
+        this.importCount = importCount;
+    }
+
     public String getDisplaytime() {
         generateDisplayTime();
         return displaytime;
@@ -107,7 +125,11 @@ public class Session {
             layerCount++;
         } else if (type.equalsIgnoreCase("tool")) {
             toolCount++;
-        } 
+        } else if (type.equalsIgnoreCase("import")) {
+            importCount++;
+        } else if (type.equalsIgnoreCase("export")) {
+            exportCount++;
+        }
     }
 
     private void generateDisplayTime() {

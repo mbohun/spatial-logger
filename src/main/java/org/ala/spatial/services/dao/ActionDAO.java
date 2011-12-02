@@ -33,6 +33,8 @@ public interface ActionDAO {
     public List<Action> getActionsByType(String type);
     public List<Action> getActionsByAppId(String appid);
     public List<Action> getActionsByEmail(String email);
+
+    public List<Action> getActionsByEmailAndCategory1(String email, String category1);
     
     public List<Breakdown> getActionBreakdownByType();
     public List<Breakdown> getActionBreakdownByDay();

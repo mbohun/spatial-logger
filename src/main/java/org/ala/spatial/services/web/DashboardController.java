@@ -114,7 +114,7 @@ public class DashboardController {
 
 
         String useremail = Utilities.getUserEmail(req);
-        List<Action> abe = actionDao.getActionsByEmail(useremail);
+        List<Action> abe = actionDao.getActionsByEmailAndCategory1(useremail, type);
         HashMap<String, String> types = new HashMap<String, String>();
         for (Action a : abe) {
             if (a.getService() == null) {
