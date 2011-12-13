@@ -12,24 +12,20 @@
  *  implied. See the License for the specific language governing
  *  rights and limitations under the License.
  ***************************************************************************/
-
 package org.ala.spatial.services.web;
 
-import java.security.Principal;
-import java.util.HashMap;
+import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 import org.ala.spatial.services.dao.ActionDAO;
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Service;
 import org.ala.spatial.services.dto.Session;
 import org.ala.spatial.services.utils.Utilities;
 import org.apache.log4j.Logger;
-import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,15 +42,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageController {
 
     private static final Logger logger = Logger.getLogger(PageController.class);
-
     private final String INDEX = "/index";
     private final String LOG_ACTION = "/log/action";
     private final String LOG_UPDATE = "/log/update/{pid}/{status}";
     private final String VIEW_ACTION = "/log/view/{id}";
     private final String VIEW_ACTIONS = "/logs";
-
     private final String LOGOUT = "/logout";
-
     @Resource(name = "actionDao")
     private ActionDAO actionDao;
 
@@ -82,30 +75,31 @@ public class PageController {
 //
 //        return "action logged";
 //    }
-
     @RequestMapping(method = RequestMethod.POST, value = LOG_ACTION)
-    public @ResponseBody String logAction(HttpServletRequest req) {
+    public
+    @ResponseBody
+    String logAction(HttpServletRequest req) {
 
         Service service = new Service();
         service.setArea(req.getParameter("area"));
         service.setExtra(req.getParameter("extra"));
         service.setLayers(req.getParameter("layers"));
         service.setName(req.getParameter("name"));
-                
+
         String privacy = req.getParameter("privacy");
         try {
             service.setPrivacy(Boolean.parseBoolean(privacy));
-        } catch(Exception e) {
+        } catch (Exception e) {
             service.setPrivacy(false);
         }
 
         String processid = req.getParameter("processid");
         try {
             service.setProcessid(Long.parseLong(processid));
-        } catch(Exception e) {
+        } catch (Exception e) {
             service.setProcessid(-1);
         }
-        
+
         service.setSpecieslsid(req.getParameter("specieslsid"));
         service.setStatus(req.getParameter("status"));
 
@@ -120,12 +114,14 @@ public class PageController {
         action.setService(service);
 
         actionDao.addAction(action);
-        
+
         return "action request logged";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = LOG_UPDATE)
-    public @ResponseBody String logUpdateService(@PathVariable("pid") String pid, @PathVariable("status") String status, HttpServletRequest req) {
+    public
+    @ResponseBody
+    String logUpdateService(@PathVariable("pid") String pid, @PathVariable("status") String status, HttpServletRequest req) {
         actionDao.updateActionStatus(pid, status);
         return "service updated";
     }
@@ -170,6 +166,33 @@ public class PageController {
         m.addObject("sessions", sessions);
 
         return m;
+    }
+
+    @RequestMapping(value = VIEW_ACTIONS + ".csv")
+    public void viewLogsAsCSV(HttpServletRequest req, HttpServletResponse res) {
+        StringBuffer sb = new StringBuffer();
+
+        if (!Utilities.isUserAdmin(req)) {
+            //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
+            sb.append("Please authenticate yourself with the ALA system with administrator credentials");
+        } else {
+            sb.append("Action ID,Time,App ID,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Area,Layers,Extra options,Process ID,Status\n");
+            List<Action> actions = actionDao.getActions();
+            for (int i = 0; i < actions.size(); i++) {
+                sb.append(actions.get(i).toString()).append("\n");
+            }            
+        }
+
+        try {
+
+            res.setContentType("text/csv");
+            OutputStream os = res.getOutputStream();
+            os.write(sb.toString().getBytes("UTF-8"));
+            os.close();
+        } catch (Exception e) {
+            System.out.println("Unable to write action logs as csv");
+            e.printStackTrace(System.out);
+        }
     }
 
     @RequestMapping(value = LOGOUT)

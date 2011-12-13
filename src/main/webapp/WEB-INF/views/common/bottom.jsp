@@ -1,40 +1,23 @@
-<%-- 
-    Document   : bottom
-    Created on : Nov 8, 2011, 11:09:54 PM
-    Author     : ajay
---%>
-<c:if test="${empty param.format || param.format != 'minimal'}">
-    <div id="footer">
-        <div id="footer-nav">
-            <ul id="menu-footer-site">
-                <li id="menu-item-1046" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/">Home</a></li>
-                <li id="menu-item-1049" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/explore/maps/explore-stateterritory/">Explore</a></li>
-                <li id="menu-item-1051" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/tools-services/">Tools</a></li>
-                <li id="menu-item-1050" class="menu-item menu-item-type-post_type current-page-ancestor"><a href="http://www.ala.org.au/support/">Support</a></li>
-                <li id="menu-item-1048" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/support/contact-us/">Contact Us</a></li>
-                <li id="menu-item-1052" class="last menu-item menu-item-type-custom"><a href="http://www.ala.org.au/about/">About the Atlas</a></li>
-            </ul>
-            <ul id="menu-footer-legal"><li id="menu-item-1042" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/home/citing-the-atlas/">Citing the Atlas</a></li>
-                <li id="menu-item-1043" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/home/disclaimer/">Disclaimer</a></li>
-                <li id="menu-item-1044" class="menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/home/privacy-policy/">Privacy Policy</a></li>
-                <li id="menu-item-1045" class="last menu-item menu-item-type-post_type"><a href="http://www.ala.org.au/home/terms-of-use/">Terms of Use</a></li>
-            </ul>
-        </div>
-        <div class="copyright">
-            <p>
-                <a href="http://creativecommons.org/licenses/by/3.0/au/" title="External link to Creative Commons" class="left no-pipe">
-                    <img src="https://www.ala.org.au/wp-content/themes/ala/images/creativecommons.png" width="88" height="31" alt="" /></a>This site is licensed under a
-                <a href="http://creativecommons.org/licenses/by/2.5/au/" title="External link to Creative Commons">Creative Commons Attribution 3.0 Australia License</a>
-            </p>
-        </div>
-    </div><!--close footer-->
-</c:if>
-</div><!--close wrapper-->
+<div style="padding-bottom:50px"></div>
+<footer>
+    <nav id="nav-footer-site">
+        <ol><li id="menu-item-24746" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24746"><a href="http://test.ala.org.au/about-home/">About the Atlas</a></li>
+            <li id="menu-item-24883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24883"><a href="http://test.ala.org.au/about-home/contact-us/">Contact us</a></li>
+        </ol>	</nav>
+    <section class="copyright">
+        <div class="copyright-img">
+            <a href="http://creativecommons.org/licenses/by/3.0/au/" title="External link to Creative Commons" class="left"><img src="http://www.ala.org.au/wp-content/themes/ala/images/creativecommons.png" width="88" height="31" alt="" /></a>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.nav-logout a')[0].href = "${pageContext.request.contextPath}/logout";
-    });
-</script>
+        </div>
+        <div class="copyright-text">
+            <nav>
+                <ol><li id="menu-item-1045" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1045"><a href="http://test.ala.org.au/superseded-pages/terms-of-use/">Terms of Use</a></li>
+                    <li id="menu-item-3090" class="last menu-item menu-item-type-post_type menu-item-object-page menu-item-3090"><a href="http://test.ala.org.au/site-map/">Site Map</a></li>
+                </ol>		</nav>
+            <p>This site is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/au/" title="External link to Creative Commons">Creative Commons Attribution 3.0 Australia License</a>. Provider content may be covered by other <a href="http://test.ala.org.au/old-bk-pages/general-terms-of-use/" title="Terms of Use">Terms of Use</a>.</p>
+
+        </div>
+    </section>
+</footer><!--close footer-->
 </body>
 </html>

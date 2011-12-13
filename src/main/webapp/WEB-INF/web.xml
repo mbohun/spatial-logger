@@ -84,7 +84,7 @@
     <context-param>
         <!-- Parameter used by CAS filters -->
         <param-name>serverName</param-name>
-        <param-value>http://spatial-dev.ala.org.au</param-value>
+        <param-value>http://ajay.ala.org.au:8080</param-value>
     </context-param>
 
     <!-- CAS filter context path - for local development - there is no context for production deployment -->

@@ -1,0 +1,67 @@
+/* 
+    Document   : dashboard
+    Created on : Dec 12, 2011, 3:31:11 PM
+    Author     : ajay
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* tabs start */
+.ul.css-tabs a {
+    border-bottom: 1px solid black;
+}
+
+li.ui-state-default a {
+    background-color: #FFFEF7;
+}
+li.ui-state-active a {
+    background-color: #fff;
+}
+.ui-tabs .ui-tabs-panel {
+    padding: 8px 0px;
+}
+/* tabs end */
+
+/* user panels start */
+#panelwrapper .panel {
+    width: 300px;
+    height: 300px;
+
+    float: left;
+    margin: 3px;
+
+    border: 2px solid #000;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+
+}
+.panel .panelhead {
+    border-bottom: 2px solid #000;
+}
+.panel div {
+    padding: 4px 4px 4px 14px;
+}
+.panelcontent ul li {
+    list-style: circle;
+}
+.panelcontent ul li.last {
+    float: right;
+    list-style: none;
+}
+
+.paneDiv {
+    border-top: 1px solid black;
+}
+/* user panels end */
+
+/* misc */
+#actionstable, #sessionstable, #actionviewtable {
+    width: 100%;
+}
+table th, table td {
+    border: 1px solid #000;
+}
+#actionviewtable td.key {
+    width: 50px;
+}

@@ -1,81 +1,123 @@
-<%@ include file="/WEB-INF/views/common/top.jsp"%>
-<div id="content">
-    <div id="header">
-        <h1>Action information</h1>
-    </div><!--close header-->
+<%@include file="common/top.jsp" %>
+<header id="page-header">
+    <div class="inner">
+        <nav id="breadcrumb"><ol><li><a href="http://www.ala.org.au">Home</a></li> <li><a href="http://spatial.ala.org.au">Mapping &#038; analysis</a></li> <li class="last">Spatial Portal Dashboard</li></ol></nav>
+        <section id="content-search">
+            <h1>Spatial Portal Dashboard</h1>
+        </section>
+    </div><!--inner-->
 
-    <div class="section">
+</header>
+<div class="inner">
 
-        <c:choose>
+    <div class="col-wide last" style="width:100%">
+
+
+        <section id="dashboard-body">
+
+            <div style="padding-bottom: 30px">
+                <a class="button" href="javascript: history.go(-1)">&lt; Back to Dashboard</a>
+            </div>
+
+            <c:choose>
             <c:when test="${action != null}">
 
-                <p>
-                    <span class="title">Name:</span> <br />
-                    ${action.service.name}
-                </p>
-                <p>
-                    <span class="title">Type:</span> <br />
-                    ${action.type}
-                </p>
-                <p>
-                    <span class="title">Process ID:</span> <br />
-                    ${action.service.processid}
-                </p>
-                <p>
-                    <span class="title">Species:</span> <br />
-                    <c:if test="${fn:length(action.service.specieslsid) > 0}">
-                        <a href="http://bie.ala.org.au/species/${action.service.specieslsid}">${action.service.specieslsid}</a>
-                    </c:if>
-                </p>
-                <p>
-                    <span class="title">Layers:</span> <br />
-                    <c:choose>
-                        <c:when test="${fn:length(action.service.layers) > 0}">
-                        <ul>
-                            <c:forEach var="u" items="${fn:split(action.service.layers, ':')}">
-                                <li><a href="/layers/more/${u}">${u}</a></li>
-                            </c:forEach>
-                        </ul>
-                        </c:when>
-                        <c:otherwise>
-                            No layers selected
-                        </c:otherwise>
-                    </c:choose>
-                </p>
-                <p>
-                    <span class="title">Area WKT:</span> <br />
-                    <a href="#" id="button">Toggle Area WKT</a> <br />
-                    <div id="areawkt" style="width: 650px; height: 300px; overflow: scroll; font-family: monospace; display: none">
-                        ${action.service.area}
-                    </div>
-                    
-                </p>
-                <p>
-                    <span class="title">Extra options:</span> <br />
-                    ${action.service.extra}
-                </p>
-                <p>
-                    <span class="title">Status:</span> <br />
-                    ${action.service.status}
-                </p>
-                <p>
-                    <span class="title">Time:</span> <br />
-                    ${action.time}
-                </p>
-                <p>
-                    <span class="title">App:</span> <br />
-                    <c:if test="${fn:length(action.appid) > 0}">
-                        <a href="/actions/app/view/${action.appid}">${action.appid}</a>
-                    </c:if>
-                </p>
-                <p>
-                    <span class="title">User IP:</span> <br />
-                    ${action.userip}
-                </p>
-                <p>
-                    <span class="title">Email:</span> <br />
-                    ${action.email}
-                </p>
+                <table id="actionviewtable">
+                    <tbody>
+                        <tr>
+                            <td class="key">Name: </td>
+                            <td>${action.service.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Type:</td>
+                            <td>${action.type}</td>
+                        </tr>
+                        <tr>
+                            <td>Process ID:</td>
+                            <td>${action.service.processid}</td>
+                        </tr>
+                        <tr>
+                            <td>Species:</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${fn:length(action.service.specieslsid) > 0}">
+                                        <a href="http://bie.ala.org.au/species/${action.service.specieslsid}">${action.service.specieslsid}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        No species selected
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Layers:</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${fn:length(action.service.layers) > 0}">
+                                        <ul>
+                                            <c:forEach var="u" items="${fn:split(action.service.layers, ':')}">
+                                                <li><a href="/layers/more/${u}">${u}</a></li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:when>
+                                    <c:otherwise>
+                                        No layers selected
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Area WKT:</td>
+                            <td>
+                                <%--
+                                <a href="#" id="button">Toggle Area WKT</a> <br />
+                                <div id="areawkt" style="width: 650px; height: 300px; overflow: scroll; font-family: monospace; display: none">
+                                    ${action.service.area}
+                                </div>
+                                --%>
+                                <c:choose>
+                                    <c:when test="${fn:length(action.service.area) > 0}">
+                                        <div id="areawkt" style="max-height: 300px; overflow: auto; font-family: monospace">
+                                            ${action.service.area}
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        No area wkt available
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Extra options:</td>
+                            <td>${action.service.extra}</td>
+                        </tr>
+                        <tr>
+                            <td>Status:</td>
+                            <td>${action.service.status}</td>
+                        </tr>
+                        <tr>
+                            <td>Time:</td>
+                            <td>${action.time}</td>
+                        </tr>
+                        <tr>
+                            <td>User IP:</td>
+                            <td>${action.userip}</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>${action.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Application:</td>
+                            <td>
+                                <c:if test="${fn:length(action.appid) > 0}">
+                                    <a href="/actions/app/view/${action.appid}">${action.appid}</a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </c:when>
             <c:otherwise>
                 <p>Log information not available</p>
@@ -83,25 +125,29 @@
         </c:choose>
 
 
-    </div>
+    </section>
 
     <script>
         $(function() {
-		function toggleWkt() {
-			// most effect types need no options passed by default
-			var options = {};
+            function toggleWkt() {
+                // most effect types need no options passed by default
+                var options = {};
 
-			// run the effect
-			$( "#areawkt" ).toggle( "blind", options, 500 );
-		};
+                // run the effect
+                $( "#areawkt" ).toggle( "blind", options, 500 );
+            };
 
-		// set effect from select menu value
-		$( "#button" ).click(function() {
-			toggleWkt();
-			return false;
-		});
-	});
+            // set effect from select menu value
+            $( "#button" ).click(function() {
+                toggleWkt();
+                return false;
+            });
+        });
     </script>
 
-</div><!--close content-->
-<%@ include file="/WEB-INF/views/common/bottom.jsp"%>
+
+    </div><!--col-wide-->
+
+</div><!--inner-->
+
+<%@include file="common/bottom.jsp" %>

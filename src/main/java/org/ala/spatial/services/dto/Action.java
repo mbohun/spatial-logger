@@ -128,7 +128,28 @@ public class Action {
 
     @Override
     public String toString() {
-        return "Action{" + "id=" + id + "time=" + time + "appid=" + appid + "email=" + email + "serviceid=" + serviceid + "type=" + type + "userip=" + userip + "sessionid=" + sessionid + "category1=" + category1 + "category2=" + category2 + "service=" + service + '}';
+        //return "Action{" + "id=" + id + "time=" + time + "appid=" + appid + "email=" + email + "serviceid=" + serviceid + "type=" + type + "userip=" + userip + "sessionid=" + sessionid + "category1=" + category1 + "category2=" + category2 + "service=" + service + '}';
+        StringBuffer sb = new StringBuffer();
+        sb
+                .append(id).append(",")
+                .append(time).append(",")
+                .append("\"").append(appid).append("\",")
+                .append("\"").append(email).append("\",")
+                .append("\"").append(userip).append("\",")
+                .append("\"").append(sessionid).append("\",")
+                .append("\"").append(type).append("\",")
+                .append("\"").append(category1).append("\",")
+                .append("\"").append(category2).append("\",")
+                .append("\"").append(service.getName()).append("\",")
+                .append("\"").append((service.getSpecieslsid()==null)?"":service.getSpecieslsid()).append("\",")
+                .append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
+                .append("\"").append((service.getLayers()==null)?"":service.getLayers()).append("\",")
+                .append("\"").append((service.getExtra()==null)?"":service.getExtra()).append("\",")
+                .append(service.getProcessid()).append(",")
+                .append("\"").append(service.getStatus()).append("\",")
+                .append("");
+
+        return sb.toString(); 
     }
 
 }
