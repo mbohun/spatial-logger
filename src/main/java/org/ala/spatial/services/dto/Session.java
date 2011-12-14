@@ -15,6 +15,7 @@
 
 package org.ala.spatial.services.dto;
 
+import java.text.NumberFormat;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
@@ -138,6 +139,40 @@ public class Session {
 
         long day = Math.round(Math.floor(diff / 60 / 60 / 24));
         diff -= day * 60 * 60 * 24;
+        if (day > 0) {
+            displaytime += day + ":";
+        } 
+
+        long hour = Math.round(Math.floor(diff / 60 / 60));
+        diff -= hour * 60 * 60;
+        if (hour > 0) {
+            displaytime += hour + ":";
+        } 
+
+        long min = Math.round(Math.floor(diff / 60));
+        diff -= min * 60;
+        if (min > 0) {
+            displaytime += min + ":";
+        } 
+
+        long sec = Math.round(Math.floor(diff));
+        if (sec > 0) {
+            if (displaytime.trim().equals("")) {
+                displaytime += "00:"+sec;
+            } else {
+                displaytime += sec;
+            }
+
+        }
+        System.out.println("Display time: " + displaytime + " for " + totaltime);
+    }
+
+    private void generateDisplayTimeAsText() {
+        long diff = totaltime;
+        displaytime = "";
+
+        long day = Math.round(Math.floor(diff / 60 / 60 / 24));
+        diff -= day * 60 * 60 * 24;
         if (day > 0 && day < 1) {
             displaytime += day + " day ";
         } else if (day > 1) {
@@ -166,6 +201,23 @@ public class Session {
         } else if (sec > 1) {
             displaytime += sec + " seconds ";
         }
+    }
+
+    public String toCSV() {
+        double t = totaltime;
+        t=t/60;
+        StringBuffer sb = new StringBuffer();
+        sb
+                .append("\"").append(sessionid).append("\",")
+                .append(speciesCount).append(",")
+                .append(areaCount).append(",")
+                .append(layerCount).append(",")
+                .append(toolCount).append(",")
+                .append(importCount).append(",")
+                .append(exportCount).append(",")
+                .append(t);
+
+        return sb.toString();
     }
     
     @Override

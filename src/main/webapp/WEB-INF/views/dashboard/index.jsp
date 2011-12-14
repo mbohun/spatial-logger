@@ -199,12 +199,12 @@
                             <tr>
                                 <th>Session</th>
                                 <th>Species</th>
-                                <th>Layers</th>
                                 <th>Areas</th>
+                                <th>Layers</th>
                                 <th>Tools</th>
                                 <th>Imports</th>
                                 <th>Exports</th>
-                                <th>Time spent</th>
+                                <th>Duration</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -212,8 +212,8 @@
                                 <tr>
                                     <td>${s.sessionid}</td>
                                     <td>${s.speciesCount}</td>
-                                    <td>${s.layerCount}</td>
                                     <td>${s.areaCount}</td>
+                                    <td>${s.layerCount}</td>
                                     <td>${s.toolCount}</td>
                                     <td>${s.importCount}</td>
                                     <td>${s.exportCount}</td>

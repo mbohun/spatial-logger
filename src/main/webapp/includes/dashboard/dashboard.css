@@ -14,8 +14,11 @@
 li.ui-state-default a {
     background-color: #FFFEF7;
 }
+li.ui-state-default a:hover {
+    background-color: #F0F0E8;
+}
 li.ui-state-active a {
-    background-color: #fff;
+    background-color: #F0F0E8;
 }
 .ui-tabs .ui-tabs-panel {
     padding: 8px 0px;

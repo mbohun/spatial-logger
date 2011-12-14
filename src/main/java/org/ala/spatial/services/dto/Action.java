@@ -142,12 +142,12 @@ public class Action {
                 .append("\"").append(category2).append("\",")
                 .append("\"").append(service.getName()).append("\",")
                 .append("\"").append((service.getSpecieslsid()==null)?"":service.getSpecieslsid()).append("\",")
-                .append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
                 .append("\"").append((service.getLayers()==null)?"":service.getLayers()).append("\",")
                 .append("\"").append((service.getExtra()==null)?"":service.getExtra()).append("\",")
                 .append(service.getProcessid()).append(",")
                 .append("\"").append(service.getStatus()).append("\",")
                 .append("");
+                //.append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
 
         return sb.toString(); 
     }

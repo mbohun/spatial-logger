@@ -47,6 +47,8 @@ public class PageController {
     private final String LOG_UPDATE = "/log/update/{pid}/{status}";
     private final String VIEW_ACTION = "/log/view/{id}";
     private final String VIEW_ACTIONS = "/logs";
+    private final String VIEW_ACTIONS_CSV = "/logs.csv";
+    private final String VIEW_SESSIONS_CSV = "/sessions.csv";
     private final String LOGOUT = "/logout";
     @Resource(name = "actionDao")
     private ActionDAO actionDao;
@@ -159,7 +161,6 @@ public class PageController {
             String[] mal = session.getTasks().split(",");
 
             for (String s : mal) {
-                System.out.println("Checking task: " + s);
                 session.incrementCount(s);
             }
         }
@@ -168,7 +169,7 @@ public class PageController {
         return m;
     }
 
-    @RequestMapping(value = VIEW_ACTIONS + ".csv")
+    @RequestMapping(value = VIEW_ACTIONS_CSV)
     public void viewLogsAsCSV(HttpServletRequest req, HttpServletResponse res) {
         StringBuffer sb = new StringBuffer();
 
@@ -176,11 +177,12 @@ public class PageController {
             //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
             sb.append("Please authenticate yourself with the ALA system with administrator credentials");
         } else {
-            sb.append("Action ID,Time,App ID,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Area,Layers,Extra options,Process ID,Status\n");
+            sb.append("Action ID,Time,App ID,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Layers,Extra options,Process ID,Status\n");
+            // ,Area
             List<Action> actions = actionDao.getActions();
             for (int i = 0; i < actions.size(); i++) {
                 sb.append(actions.get(i).toString()).append("\n");
-            }            
+            }
         }
 
         try {
@@ -190,7 +192,42 @@ public class PageController {
             os.write(sb.toString().getBytes("UTF-8"));
             os.close();
         } catch (Exception e) {
-            System.out.println("Unable to write action logs as csv");
+            System.out.println("Unable to write actions log as csv");
+            e.printStackTrace(System.out);
+        }
+    }
+
+    @RequestMapping(value = VIEW_SESSIONS_CSV)
+    public void viewSessionsAsCSV(HttpServletRequest req, HttpServletResponse res) {
+        StringBuffer sb = new StringBuffer();
+
+        if (!Utilities.isUserAdmin(req)) {
+            //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
+            sb.append("Please authenticate yourself with the ALA system with administrator credentials");
+        } else {
+            sb.append("Session ID,Species,Areas,Layers,Tools,Imports,Exports,Duration(mins)\n");
+            List<Session> sessions = actionDao.getActionsBySessions();
+
+            for (int i = 0; i < sessions.size(); i++) {
+                Session session = sessions.get(i);
+                String[] mal = session.getTasks().split(",");
+
+                for (String s : mal) {
+                    session.incrementCount(s);
+                }
+
+                sb.append(session.toCSV()).append("\n");
+            }
+        }
+
+        try {
+
+            res.setContentType("text/csv");
+            OutputStream os = res.getOutputStream();
+            os.write(sb.toString().getBytes("UTF-8"));
+            os.close();
+        } catch (Exception e) {
+            System.out.println("Unable to write sessions log as csv");
             e.printStackTrace(System.out);
         }
     }

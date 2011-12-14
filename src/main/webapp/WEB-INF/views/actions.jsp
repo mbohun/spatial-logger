@@ -17,7 +17,7 @@
 
             <span style="float: right; padding-right: 30px">
                 <a class="button" href="/actions/dashboard">Dashboard</a>
-                <a class="button" href="/actions/logs.csv">Download</a>
+                <a class="button" href="/actions/logs.csv" id="downloadcsv">Download</a>
             </span>
 
             <c:choose>
@@ -88,12 +88,12 @@
                                     <tr>
                                         <th>Session</th>
                                         <th>Species</th>
-                                        <th>Layers</th>
                                         <th>Areas</th>
+                                        <th>Layers</th>
                                         <th>Tools</th>
                                         <th>Imports</th>
                                         <th>Exports</th>
-                                        <th>Time spent</th>
+                                        <th>Duration (mins)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -101,12 +101,12 @@
                                         <tr>
                                             <td>${s.sessionid}</td>
                                             <td>${s.speciesCount}</td>
-                                            <td>${s.layerCount}</td>
                                             <td>${s.areaCount}</td>
+                                            <td>${s.layerCount}</td>
                                             <td>${s.toolCount}</td>
                                             <td>${s.importCount}</td>
                                             <td>${s.exportCount}</td>
-                                            <td>${s.displaytime}</td>
+                                            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" /></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -122,6 +122,7 @@
                             // load the tabs
                             $( "#tabs" ).tabs({
                                 show: function(event, ui) {
+                                    setDownloadUrl(ui.index); 
                                     if (ui.index == 1) {
                                         if (chartApiLoaded) return false;
                                         else {
@@ -333,6 +334,15 @@
                             var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('actionsbyday'));
                             chart.draw(abdTable, {displayAnnotations: true, displayAnnotationsFilter: true, fill: 10, thickness: 2});
                         
+                        }
+
+                        function setDownloadUrl(tab) {
+                            // tab 2 is the Sessions tab
+                            if (tab==2) {
+                                $('#downloadcsv').attr("href","/actions/sessions.csv");
+                            } else {
+                                $('#downloadcsv').attr("href","/actions/logs.csv");
+                            }
                         }
 
                     </script>
