@@ -14,8 +14,8 @@
 
     <tag>
         <description>Banner Menu Tag</description>
-        <name>bannerMenu</name>
-        <tag-class>au.org.ala.commonui.tag.BannerMenuTag</tag-class>
+        <name>banner</name>
+        <tag-class>au.org.ala.commonui.headertails.BannerTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <description>The return url path for the login/logout anchor</description>
@@ -24,88 +24,40 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <description>Whether to populate the search box with a request param</description>
+            <description>The return logout url path for the logout anchor</description>
+            <name>returnLogoutUrlPath</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>The search path to use</description>
+            <name>searchPath</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>Whether or not to populate the search box</description>
             <name>populateSearchBox</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
         </attribute>
     </tag>
-
     <tag>
-        <description>Context Parameter Tag</description>
-        <name>contextParam</name>
-        <tag-class>au.org.ala.commonui.tag.ContextParamTag</tag-class>
+        <description>Menu Tag</description>
+        <name>menu</name>
+        <tag-class>au.org.ala.commonui.headertails.MenuTag</tag-class>
         <body-content>JSP</body-content>
-        <attribute>
-            <description>The context parameter name</description>
-            <name>name</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
-
     <tag>
-        <description>Footer Menu Tag</description>
-        <name>footerMenu</name>
-        <tag-class>au.org.ala.commonui.tag.FooterMenuTag</tag-class>
+        <description>Footer Tag</description>
+        <name>footer</name>
+        <tag-class>au.org.ala.commonui.headertails.FooterTag</tag-class>
         <body-content>JSP</body-content>
-        <attribute>
-            <description>The return url path for the login/logout anchor</description>
-            <name>returnUrlPath</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
-
     <tag>
-        <description>Login Status Tag</description>
-        <name>loginStatus</name>
-        <tag-class>au.org.ala.commonui.tag.LoginStatusTag</tag-class>
-        <body-content>JSP</body-content>
-        <attribute>
-            <description>The return url path that is appended to the context path</description>
-            <name>returnUrlPath</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
-        <description>Login Logout Tag</description>
-        <name>loginLogoutLink</name>
-        <tag-class>au.org.ala.commonui.tag.LoginLogoutTag</tag-class>
-        <body-content>JSP</body-content>
-        <attribute>
-            <description>The anchor element to login or logout</description>
-            <name>returnUrlPath</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
-        <description>Property Loader Tag</description>
-        <name>propertyLoader</name>
-        <tag-class>au.org.ala.commonui.tag.PropertyLoaderTag</tag-class>
-        <body-content>JSP</body-content>
-        <attribute>
-            <description>The bundle name</description>
-            <name>bundle</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <description>the property name</description>
-            <name>property</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
-        <description>User Name Tag</description>
-        <name>userName</name>
-        <tag-class>au.org.ala.commonui.tag.UserNameTag</tag-class>
+        <description>Google Analytics Tag</description>
+        <name>analytics</name>
+        <tag-class>au.org.ala.commonui.headertails.AnayticsTag</tag-class>
         <body-content>JSP</body-content>
     </tag>
 </taglib>
