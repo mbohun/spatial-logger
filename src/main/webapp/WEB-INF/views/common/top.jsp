@@ -46,8 +46,8 @@ taglib uri="/tld/ala.tld" prefix="ala" %>
         <link rel='stylesheet' id='commentvalidation-css'  href='http://www.ala.org.au/wp-content/plugins/comment-validation/comment-validation.css?ver=3.3.1' type='text/css' media='all' />
         <link rel='stylesheet' id='jquery.lightbox.min.css-css'  href='http://www.ala.org.au/wp-content/plugins/wp-jquery-lightbox/lightbox.min.css?ver=1.2' type='text/css' media='all' />
 
-        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js'></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
         <script type='text/javascript' src='http://www.ala.org.au/wp-content/plugins/comment-validation/jquery.validate.pack.js?ver=3.3.1'></script>
         <script type='text/javascript' src='http://www.ala.org.au/wp-content/plugins/comment-validation/comment-validation.js?ver=3.3.1'></script>
         <script type='text/javascript' src='http://www.ala.org.au/wp-content/plugins/menubar-templates/Superfish/superfish.js?ver=3.3.1'></script>

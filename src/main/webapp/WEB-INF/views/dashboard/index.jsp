@@ -232,32 +232,98 @@
 
 </div><!--inner-->
 
+<style type="text/css">
+    ul.css-tabs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.css-tabs li {
+        display: inline;
+    }
+
+    ul.css-tabs li a {
+        padding: 3px 5px;
+        background-color: #DA471E;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    ul.css-tabs li a.selected,
+    ul.css-tabs li a:hover {
+        background-color: #3D464C;
+        color: #fff;
+        padding-top: 7px;
+    }
+
+    ul.css-tabs li a:focus {
+        outline: 0;
+    }
+
+    div#tabs > div {
+        padding: 5px;
+        margin-top: 3px;
+    }
+
+    div#tabs > div h2 {
+        margin-top: 0;
+    }
+</style>
+
 <script type="text/javascript">
     // Jquery Document.onLoad equivalent
     $(document).ready(function() {
 
         // load the tabs
-        $( "#tabs" ).tabs({
-            show: function(event, ui) {
-                console.log("showing: ");
-                console.log(ui);
-                if (ui.index == 1) {
-                    if (chartApiLoaded) return false;
-                    else {
-                        loadCharts();
-                        loadBreakdownByChart("category1");
-                    }
-                    backLink = $(".backLink");
-                    backLink.click(function(){
-                        // only act if link was real
-                        if (!backLink.hasClass('link')) return;
+        //        $( "#tabs" ).tabs({
+        //            show: function(event, ui) {
+        //                console.log("showing: ");
+        //                console.log(ui);
+        //                if (ui.index == 1) {
+        //                    if (chartApiLoaded) return false;
+        //                    else {
+        //                        loadCharts();
+        //                        loadBreakdownByChart("category1");
+        //                    }
+        //                    backLink = $(".backLink");
+        //                    backLink.click(function(){
+        //                        // only act if link was real
+        //                        if (!backLink.hasClass('link')) return;
+        //
+        //                        backLink.html("Click a slice to drill into the next category.").removeClass('link');
+        //                        loadBreakdownByChart("category1","");
+        //                    });
+        //                }
+        //            }
+        //        });
 
-                        backLink.html("Click a slice to drill into the next category.").removeClass('link');
-                        loadBreakdownByChart("category1","");
-                    });
-                }
+        var tabContainers = $('div#tabs > div');
+        tabContainers.hide().filter(':first').show();
+
+        $('div#tabs ul.css-tabs a').click(function () {
+            tabContainers.hide();
+            tabContainers.filter(this.hash).show();
+            $('div#tabs ul.css-tabs a').removeClass('selected');
+            $(this).addClass('selected');
+
+            if (this.hash == "#charts") {
+                loadCharts();
+                loadBreakdownByChart("category1");
+                backLink = $(".backLink");
+                backLink.click(function(){
+                    // only act if link was real
+                    if (!backLink.hasClass('link')) return;
+
+                    backLink.html("Click a slice to drill into the next category.").removeClass('link');
+                    loadBreakdownByChart("category1","");
+                });
+
             }
-        });
+
+            return false;
+        }).filter(':first').click();
+
         
     }); // end JQuery document ready
 
