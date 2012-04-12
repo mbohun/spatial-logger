@@ -111,7 +111,7 @@
                             <td>Application:</td>
                             <td>
                                 <c:if test="${fn:length(action.appid) > 0}">
-                                    <a href="/actions/app/view/${action.appid}">${action.appid}</a>
+                                    <a href="/actions/app/${action.appid}">${action.appid}</a>
                                 </c:if>
                             </td>
                         </tr>
