@@ -22,7 +22,7 @@
                     <tbody>
                         <c:forEach items="${apps}" var="app" varStatus="status">
                             <tr>
-                                <td><a href="../app/${app.appid}" target="_blank">${app.name}</a></td>
+                                <td><a href="../app/${app.appid}">${app.name}</a></td>
                                 <td>${app.organisation}</td>
                                 <td>${app.status}</td>
                             </tr>
