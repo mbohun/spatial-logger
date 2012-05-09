@@ -169,6 +169,13 @@ public class ActionDAOImpl implements ActionDAO {
     }
 
     @Override
+    public List<Action> getActionsBySessionId(String sessionid) {
+        logger.info("Getting a list of all actions for a session");
+        String sql = "select * from actionservices where sessionid = ?";
+        return jdbcTemplate.query(sql, new ActionServiceMapper(), sessionid);
+    }
+    
+    @Override
     public List<Action> getActionsByEmailAndCategory1(String email, String category1) {
 //        logger.info("Getting a list of all actions for an email");
 //        String sql = "select * from actions where email = ?";
@@ -243,14 +250,14 @@ public class ActionDAOImpl implements ActionDAO {
     @Override
     public List<Session> getActionsBySessions() {
         logger.info("Getting sessions lists");
-        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime from actionservices group by sessionid;";
+        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email from actionservices group by sessionid, email;";
         return jdbcTemplate.query(sql, new SessionMapper());
     }
 
     @Override
     public List<Session> getActionsBySessionsByUser(String email) {
         logger.info("Getting sessions lists");
-        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime from actionservices where email=? group by sessionid;";
+        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email from actionservices where email=? group by sessionid, email;";
         return jdbcTemplate.query(sql, new SessionMapper(), email);
     }
 
@@ -334,8 +341,11 @@ public class ActionDAOImpl implements ActionDAO {
         public Session mapRow(ResultSet rs, int rowNum) throws SQLException {
             Session session = new Session();
             session.setSessionid(rs.getString("sessionid"));
+            session.setEmail(rs.getString("email"));
             session.setTasks(rs.getString("tasks"));
             session.setTotaltime(rs.getInt("totaltime"));
+            session.setStartTime(rs.getTimestamp("starttime"));
+            session.setEndTime(rs.getTimestamp("endtime"));
             return session;
         }
     }

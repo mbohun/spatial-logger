@@ -86,6 +86,7 @@
                             <table id="sessionstable">
                                 <thead class="grey-bg">
                                     <tr>
+                                        <th>Email</th>
                                         <th>Session</th>
                                         <th>Species</th>
                                         <th>Areas</th>
@@ -93,12 +94,15 @@
                                         <th>Tools</th>
                                         <th>Imports</th>
                                         <th>Exports</th>
+                                        <th>Start</th>
+                                        <th>End</th>
                                         <th>Duration (mins)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach items="${sessions}" var="s" varStatus="status">
                                         <tr>
+                                            <td>${s.email}</td>
                                             <td>${s.sessionid}</td>
                                             <td>${s.speciesCount}</td>
                                             <td>${s.areaCount}</td>
@@ -106,6 +110,8 @@
                                             <td>${s.toolCount}</td>
                                             <td>${s.importCount}</td>
                                             <td>${s.exportCount}</td>
+                                            <td>${s.startTime}</td>
+                                            <td>${s.endTime}</td>
                                             <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" /></td>
                                         </tr>
                                     </c:forEach>

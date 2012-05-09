@@ -15,6 +15,7 @@
 
 package org.ala.spatial.services.dto;
 
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -25,6 +26,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 public class Session {
     private String sessionid;
+    private String email;
     private String tasks;
     private int totaltime;
     private int layerCount;
@@ -33,6 +35,8 @@ public class Session {
     private int toolCount;
     private int importCount;
     private int exportCount;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private String displaytime;
 
     public String getSessionid() {
@@ -41,6 +45,14 @@ public class Session {
 
     public void setSessionid(String sessionid) {
         this.sessionid = sessionid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTasks() {
@@ -106,6 +118,22 @@ public class Session {
 
     public void setImportCount(int importCount) {
         this.importCount = importCount;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
     public String getDisplaytime() {

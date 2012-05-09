@@ -50,7 +50,10 @@
                                         <c:set var="speciesList" value="${fn:split(types['Species'],'|')}" />
                                         <ul>
                                             <c:forEach var="a" items="${speciesList}" end="10">
-                                                <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                                                <c:set var="k" value="${fn:split(a, '-')}" />
+                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
                                             </c:forEach>
                                             <c:if test="${fn:length(speciesList) > 10}">
                                                 <li class="last"><a class="button" href="/actions/dashboard/types/species">view more...</a></li>
@@ -72,7 +75,10 @@
                                         <c:set var="areaList" value="${fn:split(types['Area'],'|')}" />
                                         <ul>
                                             <c:forEach var="a" items="${areaList}" end="10">
-                                                <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                                                <c:set var="k" value="${fn:split(a, '-')}" />
+                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
                                             </c:forEach>
                                             <c:if test="${fn:length(areaList) > 10}">
                                                 <li class="last"><a class="button" href="/actions/dashboard/types/area">view more...</a></li>
@@ -94,7 +100,10 @@
                                         <c:set var="layerList" value="${fn:split(types['Layer'],'|')}" />
                                         <ul>
                                             <c:forEach var="a" items="${layerList}" end="10">
-                                                <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                                                <c:set var="k" value="${fn:split(a, '-')}" />
+                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
                                             </c:forEach>
                                             <c:if test="${fn:length(layerList) > 10}">
                                                 <li class="last"><a class="button" href="/actions/dashboard/types/layer">view more...</a></li>
@@ -116,7 +125,10 @@
                                         <c:set var="toolList" value="${fn:split(types['Tool'],'|')}" />
                                         <ul>
                                             <c:forEach var="a" items="${toolList}" end="10">
-                                                <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                                                <c:set var="k" value="${fn:split(a, '-')}" />
+                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
                                             </c:forEach>
                                             <c:if test="${fn:length(toolList) > 10}">
                                                 <li class="last"><a class="button" href="/actions/dashboard/types/tool">view more...</a></li>
@@ -138,7 +150,10 @@
                                         <c:set var="importList" value="${fn:split(types['Import'],'|')}" />
                                         <ul>
                                             <c:forEach var="a" items="${importList}" end="10">
-                                                <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                                                <c:set var="k" value="${fn:split(a, '-')}" />
+                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
                                             </c:forEach>
                                             <c:if test="${fn:length(importList) > 10}">
                                                 <li class="last"><a class="button" href="/actions/dashboard/types/import">view more...</a></li>
@@ -160,7 +175,10 @@
                                         <c:set var="exportList" value="${fn:split(types['Export'],'|')}" />
                                         <ul>
                                             <c:forEach var="a" items="${exportList}" end="10">
-                                                <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                                                <c:set var="k" value="${fn:split(a, '-')}" />
+                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
                                             </c:forEach>
                                             <c:if test="${fn:length(exportList) > 10}">
                                                 <li class="last"><a class="button" href="/actions/dashboard/types/export">view more...</a></li>
@@ -204,7 +222,9 @@
                                 <th>Tools</th>
                                 <th>Imports</th>
                                 <th>Exports</th>
-                                <th>Duration</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Duration (mins)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -217,7 +237,10 @@
                                     <td>${s.toolCount}</td>
                                     <td>${s.importCount}</td>
                                     <td>${s.exportCount}</td>
-                                    <td>${s.displaytime}</td>
+                                    <td>${s.startTime}</td>
+                                    <td>${s.endTime}</td>
+                                    <!-- <td>${s.displaytime}</td> -->
+                                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" /></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

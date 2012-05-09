@@ -15,6 +15,7 @@
 package org.ala.spatial.services.web;
 
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Service;
 import org.ala.spatial.services.dto.Session;
 import org.ala.spatial.services.utils.Utilities;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +51,7 @@ public class PageController {
     private final String VIEW_ACTIONS = "/logs";
     private final String VIEW_ACTIONS_CSV = "/logs.csv";
     private final String VIEW_SESSIONS_CSV = "/sessions.csv";
+    private final String VIEW_SESSIONS_INFO = "/session/{sessionid}";
     private final String LOGOUT = "/logout";
     @Resource(name = "actionDao")
     private ActionDAO actionDao;
@@ -230,6 +233,61 @@ public class PageController {
             System.out.println("Unable to write sessions log as csv");
             e.printStackTrace(System.out);
         }
+    }
+
+    @RequestMapping(value = VIEW_SESSIONS_INFO)
+    public @ResponseBody HashMap viewSessionById(@PathVariable("sessionid") String sessionid, HttpServletRequest req, HttpServletResponse res) {
+        StringBuffer sb = new StringBuffer();
+        
+        HashMap map = new HashMap(); 
+        
+        /*
+
+        if (!Utilities.isUserAdmin(req)) {
+            //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
+            sb.append("Please authenticate yourself with the ALA system with administrator credentials");
+        } else {
+            sb.append("Session ID,Species,Areas,Layers,Tools,Imports,Exports,Duration(mins)\n");
+            List<Session> sessions = actionDao.getActionsBySessions();
+
+            for (int i = 0; i < sessions.size(); i++) {
+                Session session = sessions.get(i);
+                String[] mal = session.getTasks().split(",");
+
+                for (String s : mal) {
+                    session.incrementCount(s);
+                }
+
+                sb.append(session.toCSV()).append("\n");
+            }
+        }
+
+        try {
+
+            res.setContentType("text/csv");
+            OutputStream os = res.getOutputStream();
+            os.write(sb.toString().getBytes("UTF-8"));
+            os.close();
+        } catch (Exception e) {
+            System.out.println("Unable to write sessions log as csv");
+            e.printStackTrace(System.out);
+        }
+        * 
+        */
+        
+        if (StringUtils.isNotBlank(sessionid)) {
+            List<Action> actions = actionDao.getActionsBySessionId(sessionid); 
+            
+            map.put("status","success");
+            map.put("actions", actions);
+            map.put("total", actions.size()); 
+            
+        } else {
+            map.put("status", "failure");
+            map.put("reason", "no session id provided"); 
+        }
+        
+        return map; 
     }
 
     @RequestMapping(value = LOGOUT)
