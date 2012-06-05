@@ -23,7 +23,11 @@
                     <c:set var="typeList" value="${fn:split(types[key],'|')}" />
                     <ul>
                         <c:forEach var="a" items="${typeList}">
-                            <li><a href="/actions/log/view/${fn:substringAfter(a,'-')}">${fn:substringBefore(a,'-')}</a></li>
+                            <c:set var="k" value="${fn:split(a, '-')}" />
+                            <c:set var="i" value="${k[fn:length(k)-2]}" />
+                            <c:set var="t" value="${k[fn:length(k)-1]}" />
+                            <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
+                            <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                         </c:forEach>
                     </ul>
                 </c:when>

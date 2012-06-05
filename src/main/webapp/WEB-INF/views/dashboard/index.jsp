@@ -43,21 +43,22 @@
                     <div id="panelwrapper">
 
                         <div id="panelSpecies" class="panel">
-                            <div class="panelhead">Species</div>
+                            <div class="panelhead">
+                                Species
+                                <a href="/actions/dashboard/types/species">view all</a>
+                            </div>
                             <div class="panelcontent">
                                 <c:choose>
                                     <c:when test="${!empty types['Species']}">
                                         <c:set var="speciesList" value="${fn:split(types['Species'],'|')}" />
                                         <ul>
-                                            <c:forEach var="a" items="${speciesList}" end="10">
+                                            <c:forEach var="a" items="${speciesList}" end="8">
                                                 <c:set var="k" value="${fn:split(a, '-')}" />
-                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="i" value="${k[fn:length(k)-2]}" />
+                                                <c:set var="t" value="${k[fn:length(k)-1]}" />
                                                 <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
-                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
+                                                <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                                             </c:forEach>
-                                            <c:if test="${fn:length(speciesList) > 10}">
-                                                <li class="last"><a class="button" href="/actions/dashboard/types/species">view more...</a></li>
-                                            </c:if>
                                         </ul>
                                     </c:when>
                                     <c:otherwise>
@@ -68,21 +69,22 @@
                         </div>
 
                         <div id="panelArea" class="panel">
-                            <div class="panelhead">Areas</div>
+                            <div class="panelhead">
+                                Areas
+                                <a href="/actions/dashboard/types/area">view all</a>
+                            </div>
                             <div class="panelcontent">
                                 <c:choose>
                                     <c:when test="${!empty types['Area']}">
                                         <c:set var="areaList" value="${fn:split(types['Area'],'|')}" />
                                         <ul>
-                                            <c:forEach var="a" items="${areaList}" end="10">
+                                            <c:forEach var="a" items="${areaList}" end="8">
                                                 <c:set var="k" value="${fn:split(a, '-')}" />
-                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="i" value="${k[fn:length(k)-2]}" />
+                                                <c:set var="t" value="${k[fn:length(k)-1]}" />
                                                 <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
-                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
+                                                <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                                             </c:forEach>
-                                            <c:if test="${fn:length(areaList) > 10}">
-                                                <li class="last"><a class="button" href="/actions/dashboard/types/area">view more...</a></li>
-                                            </c:if>
                                         </ul>
                                     </c:when>
                                     <c:otherwise>
@@ -93,21 +95,22 @@
                         </div>
 
                         <div id="panelLayer" class="panel">
-                            <div class="panelhead">Layers</div>
+                            <div class="panelhead">
+                                Layers
+                                <a href="/actions/dashboard/types/layer">view all</a>
+                            </div>
                             <div class="panelcontent">
                                 <c:choose>
                                     <c:when test="${!empty types['Layer']}">
                                         <c:set var="layerList" value="${fn:split(types['Layer'],'|')}" />
                                         <ul>
-                                            <c:forEach var="a" items="${layerList}" end="10">
+                                            <c:forEach var="a" items="${layerList}" end="8">
                                                 <c:set var="k" value="${fn:split(a, '-')}" />
-                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="i" value="${k[fn:length(k)-2]}" />
+                                                <c:set var="t" value="${k[fn:length(k)-1]}" />
                                                 <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
-                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
+                                                <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                                             </c:forEach>
-                                            <c:if test="${fn:length(layerList) > 10}">
-                                                <li class="last"><a class="button" href="/actions/dashboard/types/layer">view more...</a></li>
-                                            </c:if>
                                         </ul>
                                     </c:when>
                                     <c:otherwise>
@@ -118,21 +121,22 @@
                         </div>
 
                         <div id="panelTool" class="panel">
-                            <div class="panelhead">Tools</div>
+                            <div class="panelhead">
+                                Tools
+                                <a href="/actions/dashboard/types/tool">view all</a>
+                            </div>
                             <div class="panelcontent">
                                 <c:choose>
                                     <c:when test="${!empty types['Tool']}">
                                         <c:set var="toolList" value="${fn:split(types['Tool'],'|')}" />
                                         <ul>
-                                            <c:forEach var="a" items="${toolList}" end="10">
+                                            <c:forEach var="a" items="${toolList}" end="8">
                                                 <c:set var="k" value="${fn:split(a, '-')}" />
-                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="i" value="${k[fn:length(k)-2]}" />
+                                                <c:set var="t" value="${k[fn:length(k)-1]}" />
                                                 <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
-                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
+                                                <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                                             </c:forEach>
-                                            <c:if test="${fn:length(toolList) > 10}">
-                                                <li class="last"><a class="button" href="/actions/dashboard/types/tool">view more...</a></li>
-                                            </c:if>
                                         </ul>
                                     </c:when>
                                     <c:otherwise>
@@ -143,21 +147,22 @@
                         </div>
 
                         <div id="panelImport" class="panel">
-                            <div class="panelhead">Imports</div>
+                            <div class="panelhead">
+                                Imports
+                                <a href="/actions/dashboard/types/import">view all</a>
+                            </div>
                             <div class="panelcontent">
                                 <c:choose>
                                     <c:when test="${!empty types['Import']}">
                                         <c:set var="importList" value="${fn:split(types['Import'],'|')}" />
                                         <ul>
-                                            <c:forEach var="a" items="${importList}" end="10">
+                                            <c:forEach var="a" items="${importList}" end="8">
                                                 <c:set var="k" value="${fn:split(a, '-')}" />
-                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="i" value="${k[fn:length(k)-2]}" />
+                                                <c:set var="t" value="${k[fn:length(k)-1]}" />
                                                 <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
-                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
+                                                <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                                             </c:forEach>
-                                            <c:if test="${fn:length(importList) > 10}">
-                                                <li class="last"><a class="button" href="/actions/dashboard/types/import">view more...</a></li>
-                                            </c:if>
                                         </ul>
                                     </c:when>
                                     <c:otherwise>
@@ -168,21 +173,22 @@
                         </div>
 
                         <div id="panelExport" class="panel">
-                            <div class="panelhead">Exports</div>
+                            <div class="panelhead">
+                                Exports
+                                <a href="/actions/dashboard/types/export">view all</a>
+                            </div>
                             <div class="panelcontent">
                                 <c:choose>
                                     <c:when test="${!empty types['Export']}">
                                         <c:set var="exportList" value="${fn:split(types['Export'],'|')}" />
                                         <ul>
-                                            <c:forEach var="a" items="${exportList}" end="10">
+                                            <c:forEach var="a" items="${exportList}" end="8">
                                                 <c:set var="k" value="${fn:split(a, '-')}" />
-                                                <c:set var="i" value="${k[fn:length(k)-1]}" />
+                                                <c:set var="i" value="${k[fn:length(k)-2]}" />
+                                                <c:set var="t" value="${k[fn:length(k)-1]}" />
                                                 <c:set var="n" value="${fn:substring(a, 0, fn:indexOf(a,i)-1)}" />
-                                                <li><a href="/actions/log/view/${i}">${n}</a></li>
+                                                <li><a href="/actions/log/view/${i}">${n}</a> at ${fn:replace(t, '_', '-')}</li>
                                             </c:forEach>
-                                            <c:if test="${fn:length(exportList) > 10}">
-                                                <li class="last"><a class="button" href="/actions/dashboard/types/export">view more...</a></li>
-                                            </c:if>
                                         </ul>
                                     </c:when>
                                     <c:otherwise>

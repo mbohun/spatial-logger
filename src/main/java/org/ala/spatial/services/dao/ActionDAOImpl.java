@@ -108,7 +108,7 @@ public class ActionDAOImpl implements ActionDAO {
     public Action getActionById(long id) {
         logger.info("Getting user action info for id = " + id);
         String sql = "select * from actionservices where id=?";
-        List<Action> l = jdbcTemplate.query(sql, new ActionServiceMapper(), id);
+        List<Action> l = jdbcTemplate.query(sql, new ActionServiceFullMapper(), id);
         if (l.size() > 0) {
             return l.get(0);
         } else {
@@ -164,7 +164,7 @@ public class ActionDAOImpl implements ActionDAO {
 //        String sql = "select * from actions where email = ?";
 //        return jdbcTemplate.query(sql, new ActionMapper(), email);
         logger.info("Getting a list of all actions for an email");
-        String sql = "select * from actionservices where email = ?";
+        String sql = "select * from actionservices where email = ? order by time desc;";
         return jdbcTemplate.query(sql, new ActionServiceMapper(), email);
     }
 
@@ -181,7 +181,7 @@ public class ActionDAOImpl implements ActionDAO {
 //        String sql = "select * from actions where email = ?";
 //        return jdbcTemplate.query(sql, new ActionMapper(), email);
         logger.info("Getting a list of all actions for an email");
-        String sql = "select * from actionservices where email = ? and lower(category1)=? ";
+        String sql = "select * from actionservices where email = ? and lower(category1)=? order by time desc;";
         return jdbcTemplate.query(sql, new ActionServiceMapper(), email, category1.toLowerCase());
     }
 
@@ -297,6 +297,37 @@ public class ActionDAOImpl implements ActionDAO {
     }
 
     private static final class ActionServiceMapper implements RowMapper<Action> {
+
+        public Action mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Action action = new Action();
+            action.setAppid(rs.getString("appid"));
+            action.setEmail(rs.getString("email"));
+            action.setId(rs.getLong("id"));
+            action.setTime(rs.getTimestamp("time"));
+            action.setType(rs.getString("type"));
+            action.setUserip(rs.getString("userip"));
+            action.setSessionid(rs.getString("sessionid"));
+            action.setCategory1(rs.getString("category1"));
+            action.setCategory2(rs.getString("category2"));
+
+            Service service = new Service();
+            //service.setArea(rs.getString("area"));
+            service.setArea("[currently available]");
+            service.setLayers(rs.getString("layers"));
+            service.setExtra(rs.getString("extra"));
+//            service.setId(rs.getLong("id"));
+            service.setName(rs.getString("name"));
+            service.setPrivacy(rs.getBoolean("privacy"));
+            service.setProcessid(rs.getLong("processid"));
+            service.setSpecieslsid(rs.getString("specieslsid"));
+            service.setStatus(rs.getString("status"));
+
+            action.setService(service);
+            return action;
+        }
+    }
+
+    private static final class ActionServiceFullMapper implements RowMapper<Action> {
 
         public Action mapRow(ResultSet rs, int rowNum) throws SQLException {
             Action action = new Action();

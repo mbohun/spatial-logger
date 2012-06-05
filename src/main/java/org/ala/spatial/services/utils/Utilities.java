@@ -33,20 +33,20 @@ public class Utilities {
     public static String getUserEmail(HttpServletRequest req) {
         String useremail = DEFAULT_USER_EMAIL;
         try {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("Breakdown Authentication details");
+            //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //System.out.println("Breakdown Authentication details");
             if (req.getUserPrincipal() != null) {
                 Principal principal = req.getUserPrincipal();
                 if (principal instanceof AttributePrincipal) {
                     AttributePrincipal ap = (AttributePrincipal) principal;
-                    System.out.println("ap: " + ap.getAttributes().toString());
+                    //System.out.println("ap: " + ap.getAttributes().toString());
                     useremail = (String) ap.getAttributes().get("email");
                 } else {
                     useremail = principal.getName();
                 }
             }
-            System.out.println("useremail: " + useremail);
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //System.out.println("useremail: " + useremail);
+            //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         } catch (Exception e) {
             System.out.println("No user available");

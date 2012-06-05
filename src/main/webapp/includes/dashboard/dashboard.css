@@ -37,10 +37,14 @@ li.ui-state-active a {
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
-
+    
+    overflow: hidden;
 }
 .panel .panelhead {
     border-bottom: 2px solid #000;
+}
+.panel .panelhead a {
+    float: right;    
 }
 .panel div {
     padding: 4px 4px 4px 14px;

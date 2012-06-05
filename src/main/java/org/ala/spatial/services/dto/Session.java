@@ -192,7 +192,7 @@ public class Session {
             }
 
         }
-        System.out.println("Display time: " + displaytime + " for " + totaltime);
+        //System.out.println("Display time: " + displaytime + " for " + totaltime);
     }
 
     private void generateDisplayTimeAsText() {

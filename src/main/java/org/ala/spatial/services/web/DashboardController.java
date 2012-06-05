@@ -23,6 +23,7 @@ import org.ala.spatial.services.dao.ActionDAO;
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Session;
 import org.ala.spatial.services.utils.Utilities;
+import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.log4j.Logger;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.stereotype.Controller;
@@ -59,6 +60,7 @@ public class DashboardController {
         String useremail = Utilities.getUserEmail(req);
         List<Action> abe = actionDao.getActionsByEmail(useremail);
 
+        FastDateFormat df = FastDateFormat.getInstance("yyyy-MM-dd hh:mm");
         HashMap<String, String> types = new HashMap<String, String>();
         for (Action a : abe) {
             if (a.getService() == null) {
@@ -69,8 +71,8 @@ public class DashboardController {
             if (types.containsKey(a.getCategory1())) {
                 val = types.get(a.getCategory1()) + "|";
             }
-
-            val += a.getService().getName() + "-" + a.getId();
+            
+            val += a.getService().getName() + "-" + a.getId() + "-" + df.format(a.getTime()).replaceAll("-", "_");
             types.put(a.getCategory1(), val);
         }
 
@@ -115,6 +117,8 @@ public class DashboardController {
 
         String useremail = Utilities.getUserEmail(req);
         List<Action> abe = actionDao.getActionsByEmailAndCategory1(useremail, type);
+        
+        FastDateFormat df = FastDateFormat.getInstance("yyyy-MM-dd hh:mm");
         HashMap<String, String> types = new HashMap<String, String>();
         for (Action a : abe) {
             if (a.getService() == null) {
@@ -129,7 +133,7 @@ public class DashboardController {
                 val = types.get(a.getCategory1()) + "|";
             }
 
-            val += a.getService().getName() + "-" + a.getId();
+            val += a.getService().getName() + "-" + a.getId() + "-" + df.format(a.getTime()).replaceAll("-", "_");
             types.put(a.getCategory1(), val);
         }
 
