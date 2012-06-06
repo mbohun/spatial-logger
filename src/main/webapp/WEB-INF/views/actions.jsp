@@ -47,7 +47,7 @@
                                         <th>Time</th>
                                         <th>Analysis type</th>
                                         <th>Status</th>
-                                        <th>User IP</th>
+                                        <th>Email</th>
                                         <th>Session ID</th>
                                     </tr>
                                 </thead>
@@ -59,7 +59,7 @@
                                             <td>${action.time}</td>
                                             <td>${action.category1}</td>
                                             <td>${action.service.status}</td>
-                                            <td>${action.userip}</td>
+                                            <td>${action.email}</td>
                                             <td>${action.sessionid}</td>
                                         </tr>
                                     </c:forEach>
@@ -218,6 +218,15 @@
                             // setup the table
                             $('#actionstable').dataTable({
                                 "aaSorting": [[ 2, "desc" ]],
+                                "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                                "sPaginationType": "full_numbers",
+                                "sDom": 'T<"clear"><"sort-options"fl<"clear">>rt<"sort-options"ip<"clear">>',
+                                "oLanguage": {
+                                    "sSearch": ""
+                                }
+                            });
+                            $('#sessionstable').dataTable({
+                                "aaSorting": [[ 8, "desc" ]],
                                 "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                 "sPaginationType": "full_numbers",
                                 "sDom": 'T<"clear"><"sort-options"fl<"clear">>rt<"sort-options"ip<"clear">>',

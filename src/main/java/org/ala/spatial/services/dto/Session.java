@@ -236,6 +236,7 @@ public class Session {
         t=t/60;
         StringBuffer sb = new StringBuffer();
         sb
+                .append("\"").append(email).append("\",")
                 .append("\"").append(sessionid).append("\",")
                 .append(speciesCount).append(",")
                 .append(areaCount).append(",")
@@ -243,6 +244,8 @@ public class Session {
                 .append(toolCount).append(",")
                 .append(importCount).append(",")
                 .append(exportCount).append(",")
+                .append(startTime).append(",")
+                .append(endTime).append(",")
                 .append(t);
 
         return sb.toString();

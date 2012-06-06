@@ -208,7 +208,7 @@ public class PageController {
             //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
             sb.append("Please authenticate yourself with the ALA system with administrator credentials");
         } else {
-            sb.append("Session ID,Species,Areas,Layers,Tools,Imports,Exports,Duration(mins)\n");
+            sb.append("Email,Session ID,Species,Areas,Layers,Tools,Imports,Exports,Start,End,Duration(mins)\n");
             List<Session> sessions = actionDao.getActionsBySessions();
 
             for (int i = 0; i < sessions.size(); i++) {
