@@ -48,6 +48,7 @@
                                         <th>Analysis type</th>
                                         <th>Status</th>
                                         <th>Email</th>
+                                        <th>User IP</th>
                                         <th>Session ID</th>
                                     </tr>
                                 </thead>
@@ -60,6 +61,7 @@
                                             <td>${action.category1}</td>
                                             <td>${action.service.status}</td>
                                             <td>${action.email}</td>
+                                            <td>${action.userip}</td>
                                             <td>${action.sessionid}</td>
                                         </tr>
                                     </c:forEach>
