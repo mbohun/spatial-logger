@@ -250,14 +250,14 @@ public class ActionDAOImpl implements ActionDAO {
     @Override
     public List<Session> getActionsBySessions() {
         logger.info("Getting sessions lists");
-        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email from actionservices group by sessionid, email order by starttime desc;";
+        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email, userip from actionservices group by sessionid, email, userip order by starttime desc;";
         return jdbcTemplate.query(sql, new SessionMapper());
     }
 
     @Override
     public List<Session> getActionsBySessionsByUser(String email) {
         logger.info("Getting sessions lists");
-        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email from actionservices where email=? group by sessionid, email order by starttime desc;";
+        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email, userip from actionservices where email=? group by sessionid, email, userip order by starttime desc;";
         return jdbcTemplate.query(sql, new SessionMapper(), email);
     }
 
@@ -371,6 +371,7 @@ public class ActionDAOImpl implements ActionDAO {
 
         public Session mapRow(ResultSet rs, int rowNum) throws SQLException {
             Session session = new Session();
+            session.setUserip(rs.getString("userip"));
             session.setSessionid(rs.getString("sessionid"));
             session.setEmail(rs.getString("email"));
             session.setTasks(rs.getString("tasks"));

@@ -133,7 +133,6 @@ public class Action {
         sb
                 .append(id).append(",")
                 .append(time).append(",")
-                .append("\"").append(appid).append("\",")
                 .append("\"").append(email).append("\",")
                 .append("\"").append(userip).append("\",")
                 .append("\"").append(sessionid).append("\",")

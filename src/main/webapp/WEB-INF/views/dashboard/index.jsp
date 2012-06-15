@@ -246,7 +246,16 @@
                                     <td>${s.startTime}</td>
                                     <td>${s.endTime}</td>
                                     <!-- <td>${s.displaytime}</td> -->
-                                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" /></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${s.totaltime eq 0}">
+                                                0.01
+                                            </c:when>
+                                            <c:otherwise>
+                                                <fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -353,6 +362,16 @@
             return false;
         }).filter(':first').click();
 
+        $('#sessionstable').dataTable({
+            "aaSorting": [[ 8, "desc" ]],
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "sPaginationType": "full_numbers",
+            "sDom": 'T<"clear"><"sort-options"fl<"clear">>rt<"sort-options"ip<"clear">>',
+            "oLanguage": {
+                "sSearch": ""
+            }
+        });
+        $("div.dataTables_filter input").attr("placeholder", "Filter within results");
         
     }); // end JQuery document ready
 

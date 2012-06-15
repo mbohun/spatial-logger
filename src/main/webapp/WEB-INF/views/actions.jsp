@@ -87,6 +87,7 @@
                                 <thead class="grey-bg">
                                     <tr>
                                         <th>Email</th>
+                                        <th>User IP</th>
                                         <th>Session</th>
                                         <th>Species</th>
                                         <th>Areas</th>
@@ -103,6 +104,7 @@
                                     <c:forEach items="${sessions}" var="s" varStatus="status">
                                         <tr>
                                             <td>${s.email}</td>
+                                            <td>${s.userip}</td>
                                             <td>${s.sessionid}</td>
                                             <td>${s.speciesCount}</td>
                                             <td>${s.areaCount}</td>
@@ -112,7 +114,16 @@
                                             <td>${s.exportCount}</td>
                                             <td>${s.startTime}</td>
                                             <td>${s.endTime}</td>
-                                            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" /></td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${s.totaltime eq 0}">
+                                                        0.01
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${s.totaltime/60}" groupingUsed="false" />
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

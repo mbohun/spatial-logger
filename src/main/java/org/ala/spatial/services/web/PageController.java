@@ -180,7 +180,7 @@ public class PageController {
             //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
             sb.append("Please authenticate yourself with the ALA system with administrator credentials");
         } else {
-            sb.append("Action ID,Time,App ID,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Layers,Extra options,Process ID,Status\n");
+            sb.append("Action ID,Time,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Layers,Extra options,Process ID,Status\n");
             // ,Area
             List<Action> actions = actionDao.getActions();
             for (int i = 0; i < actions.size(); i++) {
@@ -208,7 +208,7 @@ public class PageController {
             //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
             sb.append("Please authenticate yourself with the ALA system with administrator credentials");
         } else {
-            sb.append("Email,Session ID,Species,Areas,Layers,Tools,Imports,Exports,Start,End,Duration(mins)\n");
+            sb.append("Email,User IP,Session ID,Species,Areas,Layers,Tools,Imports,Exports,Start,End,Duration(mins)\n");
             List<Session> sessions = actionDao.getActionsBySessions();
 
             for (int i = 0; i < sessions.size(); i++) {

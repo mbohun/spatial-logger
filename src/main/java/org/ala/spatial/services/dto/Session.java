@@ -38,6 +38,15 @@ public class Session {
     private Timestamp startTime;
     private Timestamp endTime;
     private String displaytime;
+    private String userip;
+
+    public String getUserip() {
+        return userip;
+    }
+
+    public void setUserip(String userip) {
+        this.userip = userip;
+    }
 
     public String getSessionid() {
         return sessionid;
@@ -67,7 +76,7 @@ public class Session {
         return totaltime;
     }
 
-    public void setTotaltime(int totaltime) {
+    public void setTotaltime(int totaltime) {        
         this.totaltime = totaltime;
         //displaytime = generateDisplayTime();
     }
@@ -237,6 +246,7 @@ public class Session {
         StringBuffer sb = new StringBuffer();
         sb
                 .append("\"").append(email).append("\",")
+                .append("\"").append(userip).append("\",")
                 .append("\"").append(sessionid).append("\",")
                 .append(speciesCount).append(",")
                 .append(areaCount).append(",")
