@@ -92,6 +92,13 @@ public class ActionDAOImpl implements ActionDAO {
         return jdbcTemplate.query(sql, new ActionServiceMapper());
     }
 
+    @Override
+    public List<Action> getActionsByPage(int start, int count) {
+        logger.info("Getting a pagged list of actions");
+        String sql = "select * from actionservices LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, new ActionServiceMapper(), count, start);
+    }
+
 //    @Override
 //    public Action getActionById(long id) {
 //        logger.info("Getting user action info for id = " + id);
@@ -252,6 +259,13 @@ public class ActionDAOImpl implements ActionDAO {
         logger.info("Getting sessions lists");
         String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email, userip from actionservices group by sessionid, email, userip order by starttime desc;";
         return jdbcTemplate.query(sql, new SessionMapper());
+    }
+
+    @Override
+    public List<Session> getActionsBySessionsPage(int start, int count) {
+        logger.info("Getting pagged sessions lists");
+        String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email, userip from actionservices group by sessionid, email, userip order by starttime desc LIMIT ? OFFSET ?;";
+        return jdbcTemplate.query(sql, new SessionMapper(), count, start);
     }
 
     @Override

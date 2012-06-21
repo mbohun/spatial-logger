@@ -28,6 +28,7 @@ public interface ActionDAO {
     public void addAction(Action action);
     public void updateActionStatus(String pid, String status);
     public List<Action> getActions();
+    public List<Action> getActionsByPage(int start, int count);
     public Action getActionById(long id);
     public Action getActionByService(long serviceid);
     public List<Action> getActionsByType(String type);
@@ -44,5 +45,6 @@ public interface ActionDAO {
     public List<Breakdown> getActionBreakdownUserBy(String email, String breakdown, String by);
     
     public List<Session> getActionsBySessions();
+    public List<Session> getActionsBySessionsPage(int start, int count);
     public List<Session> getActionsBySessionsByUser(String email);
 }

@@ -142,6 +142,9 @@ public class PageController {
 
     @RequestMapping(value = VIEW_ACTIONS)
     public ModelAndView viewLogs(HttpServletRequest req) {
+        
+        int start = 0;
+        int count = 500;
 
         if (!Utilities.isUserAdmin(req)) {
             //ModelAndView mv = new ModelAndView("dashboard/types");
@@ -153,11 +156,11 @@ public class PageController {
         }
 
 
-        List<Action> actions = actionDao.getActions();
+        List<Action> actions = actionDao.getActionsByPage(start, count);
         ModelAndView m = new ModelAndView("actions");
         m.addObject("actions", actions);
 
-        List<Session> sessions = actionDao.getActionsBySessions();
+        List<Session> sessions = actionDao.getActionsBySessionsPage(start, count);
 
         for (int i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
