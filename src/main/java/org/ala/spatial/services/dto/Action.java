@@ -125,6 +125,26 @@ public class Action {
     public void setCategory2(String category2) {
         this.category2 = category2;
     }
+    
+    public String toCSV() {
+        StringBuffer sb = new StringBuffer();
+        sb
+                .append(id).append(",")
+                .append(time).append(",")
+                .append("\"").append(email).append("\",")
+                .append("\"").append(userip).append("\",")
+                .append("\"").append(sessionid).append("\",")
+                .append("\"").append(type).append("\",")
+                .append("\"").append(category1).append("\",")
+                .append("\"").append(category2).append("\",")
+                .append("\"").append(service.getName()).append("\",")
+                .append("\"").append((service.getSpecieslsid()==null)?"":service.getSpecieslsid()).append("\",")
+                .append("\"").append((service.getLayers()==null)?"":service.getLayers()).append("\"")
+                .append("");
+                //.append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
+
+        return sb.toString(); 
+    }
 
     @Override
     public String toString() {

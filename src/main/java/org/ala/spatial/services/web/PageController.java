@@ -183,11 +183,11 @@ public class PageController {
             //return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system with administrator credentials");
             sb.append("Please authenticate yourself with the ALA system with administrator credentials");
         } else {
-            sb.append("Action ID,Time,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Layers,Extra options,Process ID,Status\n");
+            sb.append("Action ID,Time,Email,User IP,Session ID,Type,Category1,Category 2,Name,Species LSID,Layers\n");
             // ,Area
             List<Action> actions = actionDao.getActions();
             for (int i = 0; i < actions.size(); i++) {
-                sb.append(actions.get(i).toString()).append("\n");
+                sb.append(actions.get(i).toCSV()).append("\n");
             }
         }
 

@@ -88,14 +88,14 @@ public class ActionDAOImpl implements ActionDAO {
     @Override
     public List<Action> getActions() {
         logger.info("Getting a list of all actions");
-        String sql = "select * from actionservices";
+        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid from actionservices";
         return jdbcTemplate.query(sql, new ActionServiceMapper());
     }
 
     @Override
     public List<Action> getActionsByPage(int start, int count) {
         logger.info("Getting a pagged list of actions");
-        String sql = "select * from actionservices LIMIT ? OFFSET ?";
+        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid from actionservices LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, new ActionServiceMapper(), count, start);
     }
 
@@ -314,7 +314,7 @@ public class ActionDAOImpl implements ActionDAO {
 
         public Action mapRow(ResultSet rs, int rowNum) throws SQLException {
             Action action = new Action();
-            action.setAppid(rs.getString("appid"));
+            //action.setAppid(rs.getString("appid"));
             action.setEmail(rs.getString("email"));
             action.setId(rs.getLong("id"));
             action.setTime(rs.getTimestamp("time"));
@@ -325,17 +325,17 @@ public class ActionDAOImpl implements ActionDAO {
             action.setCategory2(rs.getString("category2"));
 
             Service service = new Service();
-            //service.setArea(rs.getString("area"));
-            service.setArea("[currently available]");
+//            //service.setArea(rs.getString("area"));
+//            service.setArea("[currently available]");
             service.setLayers(rs.getString("layers"));
-            service.setExtra(rs.getString("extra"));
-//            service.setId(rs.getLong("id"));
+//            service.setExtra(rs.getString("extra"));
+////            service.setId(rs.getLong("id"));
             service.setName(rs.getString("name"));
-            service.setPrivacy(rs.getBoolean("privacy"));
-            service.setProcessid(rs.getLong("processid"));
+//            service.setPrivacy(rs.getBoolean("privacy"));
+//            service.setProcessid(rs.getLong("processid"));
             service.setSpecieslsid(rs.getString("specieslsid"));
-            service.setStatus(rs.getString("status"));
-
+//            service.setStatus(rs.getString("status"));
+//
             action.setService(service);
             return action;
         }
