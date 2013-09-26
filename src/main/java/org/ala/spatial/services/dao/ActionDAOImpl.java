@@ -95,7 +95,8 @@ public class ActionDAOImpl implements ActionDAO {
     @Override
     public List<Action> getActionsByPage(int start, int count) {
         logger.info("Getting a pagged list of actions");
-        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid from actionservices LIMIT ? OFFSET ?";
+        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid " +
+                "from actionservices order by time desc LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, new ActionServiceMapper(), count, start);
     }
 
@@ -172,7 +173,7 @@ public class ActionDAOImpl implements ActionDAO {
 //        return jdbcTemplate.query(sql, new ActionMapper(), email);
         logger.info("Getting a list of all actions for an email");
         String sql = "select * from actionservices where email = ? order by time desc;";
-        return jdbcTemplate.query(sql, new ActionServiceMapper(), email);
+        return jdbcTemplate.query(sql, new ActionServiceMapper(), email.toLowerCase());
     }
 
     @Override
@@ -189,7 +190,7 @@ public class ActionDAOImpl implements ActionDAO {
 //        return jdbcTemplate.query(sql, new ActionMapper(), email);
         logger.info("Getting a list of all actions for an email");
         String sql = "select * from actionservices where email = ? and lower(category1)=? order by time desc;";
-        return jdbcTemplate.query(sql, new ActionServiceMapper(), email, category1.toLowerCase());
+        return jdbcTemplate.query(sql, new ActionServiceMapper(), email.toLowerCase(), category1.toLowerCase());
     }
 
     @Override
@@ -210,7 +211,7 @@ public class ActionDAOImpl implements ActionDAO {
     public List<Breakdown> getActionBreakdownByDayUser(String email) {
         logger.info("Getting a breakdown of all actions for " + email + " grouped by day");
         String sql = "select cast(time as date) as label, count(*) from actions where email = ? group by label;";
-        return jdbcTemplate.query(sql, new BreakdownMapper(), email);
+        return jdbcTemplate.query(sql, new BreakdownMapper(), email.toLowerCase());
     }
 
     @Override
@@ -220,7 +221,7 @@ public class ActionDAOImpl implements ActionDAO {
 
     @Override
     public List<Breakdown> getActionBreakdownUserBy(String email, String breakdown, String by) {
-        return getActionBreakdownByWithUser(email, breakdown, by);
+        return getActionBreakdownByWithUser(email.toLowerCase(), breakdown, by);
     }
 
     private List<Breakdown> getActionBreakdownByWithUser(String email, String breakdown, String by) {
@@ -244,11 +245,11 @@ public class ActionDAOImpl implements ActionDAO {
             if (colName.equals("category1") && !by.trim().equals("")) {
                 logger.info("Getting a breakdown of all actions for " + email + " grouped by " + breakdown + " = " + by);
                 sql = "select category2 as label, count(*) from actionservices where category1 = ? and email = ? group by label;";
-                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), by, email);
+                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), by, email.toLowerCase());
             } else {
                 logger.info("Getting a breakdown of all actions " + email + " grouped by " + breakdown);
                 sql = "select " + colName + " as label, count(*) from actionservices where email = ? group by label;";
-                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), email);
+                bdList = jdbcTemplate.query(sql, new BreakdownMapper(), email.toLowerCase());
             }
         }
         return bdList;
@@ -272,7 +273,7 @@ public class ActionDAOImpl implements ActionDAO {
     public List<Session> getActionsBySessionsByUser(String email) {
         logger.info("Getting sessions lists");
         String sql = "select sessionid, array_to_string(array_agg(category1),',') as tasks, (EXTRACT(EPOCH FROM age(max(time),min(time)) ))::Integer AS totaltime, min(time) as starttime, max(time) as endtime, email, userip from actionservices where email=? group by sessionid, email, userip order by starttime desc;";
-        return jdbcTemplate.query(sql, new SessionMapper(), email);
+        return jdbcTemplate.query(sql, new SessionMapper(), email.toLowerCase());
     }
 
     private static final class ActionMapper implements RowMapper<Action> {

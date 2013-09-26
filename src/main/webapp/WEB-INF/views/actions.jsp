@@ -42,25 +42,25 @@
                             <table id="actionstable">
                                 <thead class="grey-bg">
                                     <tr>
-                                        <th>ID</th>
+                                        <%--<th>ID</th>--%>
                                         <th>Name</th>
-                                        <th>Time</th>
                                         <th>Analysis type</th>
                                         <th>Email</th>
-                                        <th>User IP</th>
-                                        <th>Session ID</th>
+                                        <th>Time</th>
+                                        <%--<th>User IP</th>--%>
+                                        <%--<th>Session ID</th>--%>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach items="${actions}" var="action" varStatus="status">
                                         <tr>
-                                            <td>${action.id}</td>
+                                            <%--<td>${action.id}</td>--%>
                                             <td><a href="/actions/log/view/${action.id}">${action.service.name}</a></td>
-                                            <td>${action.time}</td>
                                             <td>${action.category1}</td>
                                             <td>${action.email}</td>
-                                            <td>${action.userip}</td>
-                                            <td>${action.sessionid}</td>
+                                            <td>${action.time}</td>
+                                            <%--<td>${action.userip}</td>--%>
+                                            <%--<td>${action.sessionid}</td>--%>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

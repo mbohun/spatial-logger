@@ -18,6 +18,9 @@
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <!-- Enables clean URLs with JSP views e.g. /welcome instead of /app/welcome -->
     <!--
     <filter>
@@ -84,7 +87,7 @@
     <context-param>
         <!-- Parameter used by CAS filters -->
         <param-name>serverName</param-name>
-        <param-value>http://ajay.ala.org.au:8080</param-value>
+        <param-value>http://devt.ala.org.au:8080</param-value>
     </context-param>
 
     <!-- CAS filter context path - for local development - there is no context for production deployment -->
@@ -107,6 +110,10 @@
     <context-param>
         <param-name>uriExclusionFilterPattern</param-name>
         <param-value>/log/action, /session/.+, /static/.+</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/app-config.xml</param-value>
     </context-param>
 
     <!-- CAS Authentication Service filters -->

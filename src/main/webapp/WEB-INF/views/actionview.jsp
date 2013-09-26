@@ -87,10 +87,12 @@
                                 </c:choose>
                             </td>
                         </tr>
+                        <c:if test="${not empty action.service.extra}">
                         <tr>
                             <td>Extra options:</td>
                             <td>${action.service.extra}</td>
                         </tr>
+                        </c:if>
                         <tr>
                             <td>Status:</td>
                             <td>${action.service.status}</td>
@@ -107,14 +109,14 @@
                             <td>Email:</td>
                             <td>${action.email}</td>
                         </tr>
-                        <tr>
-                            <td>Application:</td>
-                            <td>
-                                <c:if test="${fn:length(action.appid) > 0}">
-                                    <a href="/actions/app/${action.appid}">${action.appid}</a>
-                                </c:if>
-                            </td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td>Application:</td>--%>
+                            <%--<td>--%>
+                                <%--<c:if test="${fn:length(action.appid) > 0}">--%>
+                                    <%--<a href="/actions/app/${action.appid}">${action.appid}</a>--%>
+                                <%--</c:if>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
                     </tbody>
                 </table>
 

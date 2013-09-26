@@ -87,7 +87,6 @@ public class DashboardController {
             }
         }
 
-
         ModelAndView mv = new ModelAndView("dashboard/index");
         mv.addObject("abe", abe);
         mv.addObject("types", types);
