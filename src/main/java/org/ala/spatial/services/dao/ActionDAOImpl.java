@@ -15,6 +15,7 @@
 package org.ala.spatial.services.dao;
 
 import com.sun.media.sound.AlawCodec;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Breakdown;
 import org.apache.log4j.Logger;
@@ -37,7 +39,6 @@ import org.ala.spatial.services.dto.Service;
 import org.ala.spatial.services.dto.Session;
 
 /**
- *
  * @author ajay
  */
 @org.springframework.stereotype.Service("actionDao")
@@ -100,7 +101,7 @@ public class ActionDAOImpl implements ActionDAO {
         return jdbcTemplate.query(sql, new ActionServiceMapper(), count, start);
     }
 
-//    @Override
+    //    @Override
 //    public Action getActionById(long id) {
 //        logger.info("Getting user action info for id = " + id);
 //        String sql = "select * from actions where id = ?";
@@ -182,7 +183,7 @@ public class ActionDAOImpl implements ActionDAO {
         String sql = "select * from actionservices where sessionid = ?";
         return jdbcTemplate.query(sql, new ActionServiceMapper(), sessionid);
     }
-    
+
     @Override
     public List<Action> getActionsByEmailAndCategory1(String email, String category1) {
 //        logger.info("Getting a list of all actions for an email");

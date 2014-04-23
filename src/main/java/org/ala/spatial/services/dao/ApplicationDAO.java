@@ -16,19 +16,26 @@
 package org.ala.spatial.services.dao;
 
 import java.util.List;
+
 import org.ala.spatial.services.dto.Application;
 
 /**
- *
  * @author ajay
  */
 public interface ApplicationDAO {
     public List<Application> findApplications();
+
     public List<Application> findApplicationsByName(String name);
+
     public List<Application> findApplicationsByEmail(String email);
+
     public List<Application> findApplicationsByOrganisation(String org);
+
     public Application findApplicationByAppId(String appid);
+
     public void addApplication(Application app);
+
     public void removeApplication(String appid);
-    public void updateApplication(Application app); 
+
+    public void updateApplication(Application app);
 }

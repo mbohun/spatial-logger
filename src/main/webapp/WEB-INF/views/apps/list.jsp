@@ -1,8 +1,9 @@
-<%@ include file="/WEB-INF/views/common/top.jsp"%>
+<%@ include file="/WEB-INF/views/common/top.jsp" %>
 <div id="content">
     <div id="header">
         <h1>ALA WS Client Application list</h1>
-    </div><!--close header-->
+    </div>
+    <!--close header-->
 
     <div class="section">
 
@@ -13,20 +14,20 @@
                 <p>Got ${fn:length(apps)} applications</p>
                 <table width="50%" border="1">
                     <thead class="grey-bg">
-                        <tr>                            
-                            <th>Name</th>
-                            <th>Organisation</th>
-                            <th>Status</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Organisation</th>
+                        <th>Status</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${apps}" var="app" varStatus="status">
-                            <tr>
-                                <td><a href="../app/${app.appid}">${app.name}</a></td>
-                                <td>${app.organisation}</td>
-                                <td>${app.status}</td>
-                            </tr>
-                        </c:forEach>
+                    <c:forEach items="${apps}" var="app" varStatus="status">
+                        <tr>
+                            <td><a href="../app/${app.appid}">${app.name}</a></td>
+                            <td>${app.organisation}</td>
+                            <td>${app.status}</td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </c:when>
@@ -37,5 +38,6 @@
 
     </div>
 
-</div><!--close content-->
-<%@ include file="/WEB-INF/views/common/bottom.jsp"%>
+</div>
+<!--close content-->
+<%@ include file="/WEB-INF/views/common/bottom.jsp" %>

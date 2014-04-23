@@ -14,15 +14,19 @@
 li.ui-state-default a {
     background-color: #FFFEF7;
 }
+
 li.ui-state-default a:hover {
     background-color: #F0F0E8;
 }
+
 li.ui-state-active a {
     background-color: #F0F0E8;
 }
+
 .ui-tabs .ui-tabs-panel {
     padding: 8px 0px;
 }
+
 /* tabs end */
 
 /* user panels start */
@@ -37,21 +41,26 @@ li.ui-state-active a {
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
-    
+
     overflow: hidden;
 }
+
 .panel .panelhead {
     border-bottom: 2px solid #000;
 }
+
 .panel .panelhead a {
-    float: right;    
+    float: right;
 }
+
 .panel div {
     padding: 4px 4px 4px 14px;
 }
+
 .panelcontent ul li {
     list-style: circle;
 }
+
 .panelcontent ul li.last {
     float: right;
     list-style: none;
@@ -60,15 +69,18 @@ li.ui-state-active a {
 .paneDiv {
     border-top: 1px solid black;
 }
+
 /* user panels end */
 
 /* misc */
 #actionstable, #sessionstable, #actionviewtable {
     width: 100%;
 }
+
 table th, table td {
     border: 1px solid #000;
 }
+
 #actionviewtable td.key {
     width: 50px;
 }

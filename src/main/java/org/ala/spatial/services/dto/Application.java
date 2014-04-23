@@ -16,14 +16,14 @@
 package org.ala.spatial.services.dto;
 
 import java.sql.Timestamp;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
- *
  * @author ajay
  */
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 public class Application {
     private long id;
     private String name;

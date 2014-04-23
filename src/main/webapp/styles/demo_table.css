@@ -64,18 +64,19 @@
     float: right;
     text-align: right;
 }
-.dataTables_filter input {
-    width:200px;
-    height:27px;
-    outline:none;
-    font: normal 1.2em/1 Arial, Helvetica, sans-serif;
-    padding:0 12px;
-    margin:0 12px 6px 0;
-    border:1px #a5acb2 solid;
-    float:left;
 
-    float:none;
-    margin-right:9px;
+.dataTables_filter input {
+    width: 200px;
+    height: 27px;
+    outline: none;
+    font: normal 1.2em/1 Arial, Helvetica, sans-serif;
+    padding: 0 12px;
+    margin: 0 12px 6px 0;
+    border: 1px #a5acb2 solid;
+    float: left;
+
+    float: none;
+    margin-right: 9px;
 
 }
 
@@ -86,7 +87,7 @@
 
 .dataTables_paginate {
     width: 44px;
-    * width: 50px;
+    *width: 50px;
     float: right;
     text-align: right;
 }
@@ -115,8 +116,6 @@
     background-image: url('../images/forward_enabled.jpg');
 }
 
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables display
 */
@@ -144,7 +143,7 @@ table.display thead th {
     border-bottom: 1px solid black;
     font-weight: bold;
     cursor: pointer;
-    * cursor: hand;
+    *cursor: hand;
 }
 
 table.display tfoot th {
@@ -164,8 +163,6 @@ table.display td {
 table.display td.center {
     text-align: center;
 }
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
@@ -191,10 +188,6 @@ table.display td.center {
     background: url('../images/sort_desc_disabled.png') no-repeat center right;
 }
 
-
-
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables row classes
 */
@@ -206,10 +199,6 @@ tr.odd {
 tr.even {
     /*background-color: white;*/
 }
-
-
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Misc
@@ -261,7 +250,6 @@ td.details {
     border: 2px solid #A19B9E;
 }
 
-
 .example_alt_pagination div.dataTables_info {
     width: 40%;
 }
@@ -303,7 +291,6 @@ table.display tr.odd.row_selected td {
     background-color: #9FAFD1;
 }
 
-
 /*
  * Sorting classes for columns
 */
@@ -333,7 +320,6 @@ tr.even td.sorting_3 {
     background-color: #F9F9FF;
 }
 */
-
 
 /* For the Conditional-CSS grading rows */
 /*
@@ -441,7 +427,6 @@ tr.even.gradeU td.sorting_3 {
     background-color: #e2e2e2;
 }
 
-
 /*
  * Row highlighting example
 */
@@ -484,7 +469,6 @@ tr.even.gradeU td.sorting_3 {
 .ex_highlight_row #example tr.odd:hover td.sorting_3 {
     background-color: #DBFF70;
 }
-
 
 /*
  * KeyTable

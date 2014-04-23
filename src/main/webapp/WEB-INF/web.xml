@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>ALA Spatial Actions</display-name>
     <!-- Reads request input using UTF-8 encoding -->
     <filter>
@@ -36,16 +37,10 @@
     -->
 
 
-
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
-	
-
-
-
-
 
 
     <!-- //// -->
@@ -109,7 +104,7 @@
 
     <context-param>
         <param-name>uriExclusionFilterPattern</param-name>
-        <param-value>/log/action, /session/.+, /static/.+</param-value>
+        <param-value>/log/action, /session/.+, /static/.+, /app/.*</param-value>
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>

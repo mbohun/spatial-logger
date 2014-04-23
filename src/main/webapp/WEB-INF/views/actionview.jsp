@@ -1,11 +1,18 @@
 <%@include file="common/top.jsp" %>
 <header id="page-header">
     <div class="inner">
-        <nav id="breadcrumb"><ol><li><a href="http://www.ala.org.au">Home</a></li> <li><a href="http://spatial.ala.org.au">Mapping &#038; analysis</a></li> <li class="last">Spatial Portal Dashboard</li></ol></nav>
+        <nav id="breadcrumb">
+            <ol>
+                <li><a href="http://www.ala.org.au">Home</a></li>
+                <li><a href="http://spatial.ala.org.au">Mapping &#038; analysis</a></li>
+                <li class="last">Spatial Portal Dashboard</li>
+            </ol>
+        </nav>
         <section id="content-search">
             <h1>Spatial Portal Dashboard</h1>
         </section>
-    </div><!--inner-->
+    </div>
+    <!--inner-->
 
 </header>
 <div class="inner">
@@ -20,12 +27,12 @@
             </div>
 
             <c:choose>
-            <c:when test="${action != null}">
+                <c:when test="${action != null}">
 
-                <table id="actionviewtable">
-                    <tbody>
+                    <table id="actionviewtable">
+                        <tbody>
                         <tr>
-                            <td class="key">Name: </td>
+                            <td class="key">Name:</td>
                             <td>${action.service.name}</td>
                         </tr>
                         <tr>
@@ -69,16 +76,17 @@
                         <tr>
                             <td>Area WKT:</td>
                             <td>
-                                <%--
-                                <a href="#" id="button">Toggle Area WKT</a> <br />
-                                <div id="areawkt" style="width: 650px; height: 300px; overflow: scroll; font-family: monospace; display: none">
-                                    ${action.service.area}
-                                </div>
-                                --%>
+                                    <%--
+                                    <a href="#" id="button">Toggle Area WKT</a> <br />
+                                    <div id="areawkt" style="width: 650px; height: 300px; overflow: scroll; font-family: monospace; display: none">
+                                        ${action.service.area}
+                                    </div>
+                                    --%>
                                 <c:choose>
                                     <c:when test="${fn:length(action.service.area) > 0}">
-                                        <div id="areawkt" style="max-height: 300px; overflow: auto; font-family: monospace">
-                                            ${action.service.area}
+                                        <div id="areawkt"
+                                             style="max-height: 300px; overflow: auto; font-family: monospace">
+                                                ${action.service.area}
                                         </div>
                                     </c:when>
                                     <c:otherwise>
@@ -88,10 +96,10 @@
                             </td>
                         </tr>
                         <c:if test="${not empty action.service.extra}">
-                        <tr>
-                            <td>Extra options:</td>
-                            <td>${action.service.extra}</td>
-                        </tr>
+                            <tr>
+                                <td>Extra options:</td>
+                                <td>${action.service.extra}</td>
+                            </tr>
                         </c:if>
                         <tr>
                             <td>Status:</td>
@@ -109,47 +117,49 @@
                             <td>Email:</td>
                             <td>${action.email}</td>
                         </tr>
-                        <%--<tr>--%>
+                            <%--<tr>--%>
                             <%--<td>Application:</td>--%>
                             <%--<td>--%>
-                                <%--<c:if test="${fn:length(action.appid) > 0}">--%>
-                                    <%--<a href="/actions/app/${action.appid}">${action.appid}</a>--%>
-                                <%--</c:if>--%>
+                            <%--<c:if test="${fn:length(action.appid) > 0}">--%>
+                            <%--<a href="/actions/app/${action.appid}">${action.appid}</a>--%>
+                            <%--</c:if>--%>
                             <%--</td>--%>
-                        <%--</tr>--%>
-                    </tbody>
-                </table>
+                            <%--</tr>--%>
+                        </tbody>
+                    </table>
 
-            </c:when>
-            <c:otherwise>
-                <p>Log information not available</p>
-            </c:otherwise>
-        </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <p>Log information not available</p>
+                </c:otherwise>
+            </c:choose>
 
 
-    </section>
+        </section>
 
-    <script>
-        $(function() {
-            function toggleWkt() {
-                // most effect types need no options passed by default
-                var options = {};
+        <script>
+            $(function () {
+                function toggleWkt() {
+                    // most effect types need no options passed by default
+                    var options = {};
 
-                // run the effect
-                $( "#areawkt" ).toggle( "blind", options, 500 );
-            };
+                    // run the effect
+                    $("#areawkt").toggle("blind", options, 500);
+                };
 
-            // set effect from select menu value
-            $( "#button" ).click(function() {
-                toggleWkt();
-                return false;
+                // set effect from select menu value
+                $("#button").click(function () {
+                    toggleWkt();
+                    return false;
+                });
             });
-        });
-    </script>
+        </script>
 
 
-    </div><!--col-wide-->
+    </div>
+    <!--col-wide-->
 
-</div><!--inner-->
+</div>
+<!--inner-->
 
 <%@include file="common/bottom.jsp" %>

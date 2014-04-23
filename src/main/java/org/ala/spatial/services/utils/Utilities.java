@@ -14,16 +14,25 @@
  ***************************************************************************/
 package org.ala.spatial.services.utils;
 
+import java.io.FileReader;
 import java.security.Principal;
+import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONObject;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 
 /**
  * General utilities
- * 
+ *
  * @author ajay
  */
 public class Utilities {
+
+    private static Logger logger = Logger.getLogger(Utilities.class);
 
     private static String DEFAULT_USER_EMAIL = "guest@ala.org.au";
     private static String DEFAULT_SPATIAL_USER_ADMIN = "ROLE_SPATIAL_ADMIN";
@@ -64,7 +73,62 @@ public class Utilities {
     }
 
     public static boolean isUserAdmin(HttpServletRequest req) {
-        if (!isLoggedIn(req)) return false; 
-        return req.isUserInRole(DEFAULT_SPATIAL_USER_ADMIN); 
+        if (!isLoggedIn(req)) return false;
+        return req.isUserInRole(DEFAULT_SPATIAL_USER_ADMIN);
+    }
+
+    public static boolean isAppAuth(HttpServletRequest req) {
+        return req.getParameter("appid") != null && isValidAppId(req.getParameter("appid"));
+    }
+
+    private static boolean isValidAppId(String appid) {
+        String url = "http://auth.ala.org.au/apikey/ws/check?apikey=" + appid;
+        try {
+            HttpClient client = new HttpClient();
+            GetMethod get = new GetMethod(url);
+
+            int result = client.executeMethod(get);
+
+            JSONObject jo = JSONObject.fromObject(get.getResponseBodyAsString());
+
+            if (jo.containsKey("valid"))
+                if (jo.getString("valid").equalsIgnoreCase("true")) {
+                    return true;
+                } else {
+                    logger.warn("invalid appid: " + appid);
+                }
+
+        } catch (Exception e) {
+            logger.error("failed to validate appid with url: " + url, e);
+        }
+
+        //temporary, also match against properties file
+        System.out.println("webportal.appid=" + getProperty("webportal.appid") + " comparing to: " + appid);
+        if (getProperty("webportal.appid") != null && getProperty("webportal.appid").equals(appid)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private static Properties properties = null;
+
+    public static String getProperty(String property) {
+        String file = "/data/actions/config/actions-config.properties";
+
+        if (properties == null) {
+            properties = new Properties();
+            try {
+                properties.load(new FileReader(file));
+            } catch (Exception e) {
+                logger.error("failed to load properties file: " + file, e);
+            }
+        }
+
+        if (properties.getProperty(property) == null) {
+            logger.error("******* MISSING PROPERTY from " + file + " for property: " + property);
+        }
+
+        return properties.getProperty(property);
     }
 }

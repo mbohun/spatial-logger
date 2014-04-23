@@ -18,6 +18,7 @@ package org.ala.spatial.services.web;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.ala.spatial.services.dao.ApplicationDAO;
 import org.ala.spatial.services.dto.Application;
 import org.apache.log4j.Logger;
@@ -30,12 +31,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
  * @author ajay
  */
 @Controller
 public class ApplicationController {
-    
+
     private static final Logger logger = Logger.getLogger(ApplicationController.class);
 
     private final String APP_LIST = "/apps/";
@@ -101,7 +101,7 @@ public class ApplicationController {
             //return "application successfully created. Your appid is '" + app.getAppid() + "', please keep this safe.";
         }
 
-        return m; 
+        return m;
 
     }
 }

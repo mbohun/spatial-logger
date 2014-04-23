@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.tagext.TryCatchFinally;
+
 import org.ala.spatial.services.dao.ActionDAO;
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Service;
@@ -61,7 +62,7 @@ public class PageController {
         return "index";
     }
 
-//    //public String logAction(@RequestParam("appid") String appid) {
+    //    //public String logAction(@RequestParam("appid") String appid) {
 //    @RequestMapping(method = RequestMethod.POST, value = LOG_ACTION)
 //    public @ResponseBody String logAction(@ModelAttribute("action") Action action, @ModelAttribute("service") Service service, HttpServletRequest req) {
 //
@@ -142,7 +143,7 @@ public class PageController {
 
     @RequestMapping(value = VIEW_ACTIONS)
     public ModelAndView viewLogs(HttpServletRequest req) {
-        
+
         int start = 0;
         int count = 500;
 
@@ -239,9 +240,11 @@ public class PageController {
     }
 
     @RequestMapping(value = VIEW_SESSIONS_INFO)
-    public @ResponseBody HashMap viewSessionById(@PathVariable("sessionid") String sessionid, HttpServletRequest req, HttpServletResponse res) {
+    public
+    @ResponseBody
+    HashMap viewSessionById(@PathVariable("sessionid") String sessionid, HttpServletRequest req, HttpServletResponse res) {
         StringBuffer sb = new StringBuffer();
-        
+
         HashMap map = new HashMap(); 
         
         /*
@@ -277,20 +280,20 @@ public class PageController {
         }
         * 
         */
-        
+
         if (StringUtils.isNotBlank(sessionid)) {
-            List<Action> actions = actionDao.getActionsBySessionId(sessionid); 
-            
-            map.put("status","success");
+            List<Action> actions = actionDao.getActionsBySessionId(sessionid);
+
+            map.put("status", "success");
             map.put("actions", actions);
-            map.put("total", actions.size()); 
-            
+            map.put("total", actions.size());
+
         } else {
             map.put("status", "failure");
-            map.put("reason", "no session id provided"); 
+            map.put("reason", "no session id provided");
         }
-        
-        return map; 
+
+        return map;
     }
 
     @RequestMapping(value = LOGOUT)

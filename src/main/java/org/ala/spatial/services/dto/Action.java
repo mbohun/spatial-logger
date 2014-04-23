@@ -16,14 +16,14 @@
 package org.ala.spatial.services.dto;
 
 import java.sql.Timestamp;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
- *
  * @author ajay
  */
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 public class Action {
     private long id;
     private Timestamp time;
@@ -125,7 +125,7 @@ public class Action {
     public void setCategory2(String category2) {
         this.category2 = category2;
     }
-    
+
     public String toCSV() {
         StringBuffer sb = new StringBuffer();
         sb
@@ -138,12 +138,12 @@ public class Action {
                 .append("\"").append(category1).append("\",")
                 .append("\"").append(category2).append("\",")
                 .append("\"").append(service.getName()).append("\",")
-                .append("\"").append((service.getSpecieslsid()==null)?"":service.getSpecieslsid()).append("\",")
-                .append("\"").append((service.getLayers()==null)?"":service.getLayers()).append("\"")
+                .append("\"").append((service.getSpecieslsid() == null) ? "" : service.getSpecieslsid()).append("\",")
+                .append("\"").append((service.getLayers() == null) ? "" : service.getLayers()).append("\"")
                 .append("");
-                //.append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
+        //.append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
 
-        return sb.toString(); 
+        return sb.toString();
     }
 
     @Override
@@ -160,15 +160,15 @@ public class Action {
                 .append("\"").append(category1).append("\",")
                 .append("\"").append(category2).append("\",")
                 .append("\"").append(service.getName()).append("\",")
-                .append("\"").append((service.getSpecieslsid()==null)?"":service.getSpecieslsid()).append("\",")
-                .append("\"").append((service.getLayers()==null)?"":service.getLayers()).append("\",")
-                .append("\"").append((service.getExtra()==null)?"":service.getExtra()).append("\",")
+                .append("\"").append((service.getSpecieslsid() == null) ? "" : service.getSpecieslsid()).append("\",")
+                .append("\"").append((service.getLayers() == null) ? "" : service.getLayers()).append("\",")
+                .append("\"").append((service.getExtra() == null) ? "" : service.getExtra()).append("\",")
                 .append(service.getProcessid()).append(",")
                 .append("\"").append(service.getStatus()).append("\",")
                 .append("");
-                //.append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
+        //.append("\"").append((service.getArea()==null)?"":service.getArea()).append("\",")
 
-        return sb.toString(); 
+        return sb.toString();
     }
 
 }

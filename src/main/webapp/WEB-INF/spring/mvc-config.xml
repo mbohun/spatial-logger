@@ -11,7 +11,7 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
 
     <!-- Forwards requests to the "/" resource to the "welcome" view -->
     <mvc:view-controller path="/" view-name="index"/>
@@ -22,19 +22,19 @@
           p:basenames="messages" />
     -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="/WEB-INF/messages/messages" />
-        <property name="cacheSeconds" value="0" />
+        <property name="basename" value="/WEB-INF/messages/messages"/>
+        <property name="cacheSeconds" value="0"/>
     </bean>
 
 
     <!-- Declare the Interceptor -->
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
-              p:paramName="locale" />
+              p:paramName="locale"/>
     </mvc:interceptors>
 
     <!-- Declare the Resolver -->
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 
     <!-- Resolves view names to protected .jsp resources within the /WEB-INF/views directory -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -53,25 +53,25 @@
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" p:order="1">
         <property name="mediaTypes">
             <map>
-                <entry key="html" value="text/html" />
-                <entry key="xml"  value="application/xml"/>
+                <entry key="html" value="text/html"/>
+                <entry key="xml" value="application/xml"/>
                 <entry key="json" value="application/json"/>
             </map>
         </property>
         <property name="defaultViews">
             <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
             </list>
         </property>
-        <property name="defaultContentType" ref="htmlMediaType" />
-        <property name="ignoreAcceptHeader" value="true" />
+        <property name="defaultContentType" ref="htmlMediaType"/>
+        <property name="ignoreAcceptHeader" value="true"/>
     </bean>
 
     <!-- Specify the default media type (html) as we have disabled the
       -  default setting with DefaultAnnotationHandlerMapping -->
     <bean id="htmlMediaType" class="org.springframework.http.MediaType">
-        <constructor-arg index="0" value="text" />
-        <constructor-arg index="1" value="html" />
+        <constructor-arg index="0" value="text"/>
+        <constructor-arg index="1" value="html"/>
     </bean>
 
 </beans>

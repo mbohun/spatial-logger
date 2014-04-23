@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.ala.spatial.services.dto.Application;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,7 +35,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 /**
- *
  * @author ajay
  */
 @org.springframework.stereotype.Service("applicationDao")
@@ -103,7 +103,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
             app.setAppid(sb.toString());
         } catch (NoSuchAlgorithmException ex) {
             java.util.logging.Logger.getLogger(ApplicationDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
         System.out.println(app.toString());
 

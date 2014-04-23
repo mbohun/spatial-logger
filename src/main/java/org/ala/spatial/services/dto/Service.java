@@ -18,11 +18,10 @@ package org.ala.spatial.services.dto;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
- *
  * @author ajay
  */
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 public class Service {
     private long id;
     private String name;
@@ -110,5 +109,5 @@ public class Service {
     public String toString() {
         return "Service{" + " id=" + id + " name=" + name + " processid=" + processid + " specieslsid=" + specieslsid + " area=" + area + " layers=" + layers + " extra=" + extra + " status=" + status + "  privacy=" + privacy + '}';
     }
-    
+
 }

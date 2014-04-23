@@ -17,10 +17,10 @@ package org.ala.spatial.services.dto;
 
 import java.sql.Timestamp;
 import java.text.NumberFormat;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
- *
  * @author ajay
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
@@ -76,7 +76,7 @@ public class Session {
         return totaltime;
     }
 
-    public void setTotaltime(int totaltime) {        
+    public void setTotaltime(int totaltime) {
         this.totaltime = totaltime;
         //displaytime = generateDisplayTime();
     }
@@ -150,7 +150,7 @@ public class Session {
         return displaytime;
     }
 
-    public void setDisplaytime(String displaytime) {        
+    public void setDisplaytime(String displaytime) {
         this.displaytime = displaytime;
     }
 
@@ -178,24 +178,24 @@ public class Session {
         diff -= day * 60 * 60 * 24;
         if (day > 0) {
             displaytime += day + ":";
-        } 
+        }
 
         long hour = Math.round(Math.floor(diff / 60 / 60));
         diff -= hour * 60 * 60;
         if (hour > 0) {
             displaytime += hour + ":";
-        } 
+        }
 
         long min = Math.round(Math.floor(diff / 60));
         diff -= min * 60;
         if (min > 0) {
             displaytime += min + ":";
-        } 
+        }
 
         long sec = Math.round(Math.floor(diff));
         if (sec > 0) {
             if (displaytime.trim().equals("")) {
-                displaytime += "00:"+sec;
+                displaytime += "00:" + sec;
             } else {
                 displaytime += sec;
             }
@@ -242,7 +242,7 @@ public class Session {
 
     public String toCSV() {
         double t = totaltime;
-        t=t/60;
+        t = t / 60;
         StringBuffer sb = new StringBuffer();
         sb
                 .append("\"").append(email).append("\",")
@@ -260,7 +260,7 @@ public class Session {
 
         return sb.toString();
     }
-    
+
     @Override
     public String toString() {
         return "Session{" + "sessionid=" + sessionid + "tasks=" + tasks + "totaltime=" + totaltime + "layerCount=" + layerCount + "speciesCount=" + speciesCount + "areaCount=" + areaCount + "toolCount=" + toolCount + '}';

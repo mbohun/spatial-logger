@@ -14,11 +14,14 @@
  ***************************************************************************/
 package org.ala.spatial.services.web;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.ala.spatial.services.dao.ActionDAO;
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Session;
@@ -33,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Dashboard controller for a logged-in user
- * 
+ *
  * @author ajay
  */
 @Controller
@@ -71,7 +74,7 @@ public class DashboardController {
             if (types.containsKey(a.getCategory1())) {
                 val = types.get(a.getCategory1()) + "|";
             }
-            
+
             val += a.getService().getName() + "-" + a.getId() + "-" + df.format(a.getTime()).replaceAll("-", "_");
             types.put(a.getCategory1(), val);
         }
@@ -92,31 +95,40 @@ public class DashboardController {
         mv.addObject("types", types);
         mv.addObject("sessions", sessions);
         mv.addObject("useremail", useremail);
-        mv.addObject("isAdmin",Utilities.isUserAdmin(req));
+        mv.addObject("isAdmin", Utilities.isUserAdmin(req));
 
         return mv;
     }
 
-    @RequestMapping(value = DASHBOARD_HOME + "/types/{type}")
+    @RequestMapping(value = {DASHBOARD_HOME + "/types/{type}", "app/types/{type}"})
     public ModelAndView displayFullTypeList(@PathVariable String type, HttpServletRequest req) {
 
         if (type.equals("")) {
             return index(req);
         }
 
-        if (!Utilities.isLoggedIn(req)) {
+        String useremail = null;
+
+        if (Utilities.isAppAuth(req)) {
+            try {
+                useremail = URLDecoder.decode(req.getParameter("email"), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                logger.error("User: " + req.getParameter("email"));
+                return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system");
+            }
+        } else if (!Utilities.isLoggedIn(req)) {
             //ModelAndView mv = new ModelAndView("dashboard/types");
             //mv.addAttribute("error", "authentication");
             //mv.addAttribute("message", "Please authenticate yourself with the ALA system");
             //return mv;
 
-            return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system"); 
+            return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system");
+        } else {
+            useremail = Utilities.getUserEmail(req);
         }
 
-
-        String useremail = Utilities.getUserEmail(req);
         List<Action> abe = actionDao.getActionsByEmailAndCategory1(useremail, type);
-        
+
         FastDateFormat df = FastDateFormat.getInstance("yyyy-MM-dd hh:mm");
         HashMap<String, String> types = new HashMap<String, String>();
         for (Action a : abe) {
@@ -143,7 +155,7 @@ public class DashboardController {
         mv.addObject("types", types);
         mv.addObject("key", key);
         mv.addObject("useremail", useremail);
-        mv.addObject("isAdmin",Utilities.isUserAdmin(req));
+        mv.addObject("isAdmin", Utilities.isUserAdmin(req));
 
         return mv;
 

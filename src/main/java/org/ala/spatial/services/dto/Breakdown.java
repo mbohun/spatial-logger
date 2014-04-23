@@ -18,7 +18,6 @@ package org.ala.spatial.services.dto;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
- *
  * @author ajay
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
@@ -46,5 +45,5 @@ public class Breakdown {
     public String toString() {
         return "Breakdown{" + "label=" + label + "count=" + count + '}';
     }
-    
+
 }

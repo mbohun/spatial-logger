@@ -16,35 +16,50 @@
 package org.ala.spatial.services.dao;
 
 import java.util.List;
+
 import org.ala.spatial.services.dto.Action;
 import org.ala.spatial.services.dto.Breakdown;
 import org.ala.spatial.services.dto.Session;
 
 /**
- *
  * @author ajay
  */
 public interface ActionDAO {
     public void addAction(Action action);
+
     public void updateActionStatus(String pid, String status);
+
     public List<Action> getActions();
+
     public List<Action> getActionsByPage(int start, int count);
+
     public Action getActionById(long id);
+
     public Action getActionByService(long serviceid);
+
     public List<Action> getActionsByType(String type);
+
     public List<Action> getActionsByAppId(String appid);
+
     public List<Action> getActionsByEmail(String email);
+
     public List<Action> getActionsBySessionId(String sessionid);
 
     public List<Action> getActionsByEmailAndCategory1(String email, String category1);
-    
+
     public List<Breakdown> getActionBreakdownByType();
+
     public List<Breakdown> getActionBreakdownByDay();
+
     public List<Breakdown> getActionBreakdownByDayUser(String email);
+
     public List<Breakdown> getActionBreakdownBy(String breakdown, String by);
+
     public List<Breakdown> getActionBreakdownUserBy(String email, String breakdown, String by);
-    
+
     public List<Session> getActionsBySessions();
+
     public List<Session> getActionsBySessionsPage(int start, int count);
+
     public List<Session> getActionsBySessionsByUser(String email);
 }
