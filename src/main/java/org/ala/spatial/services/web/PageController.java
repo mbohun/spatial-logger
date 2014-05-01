@@ -15,6 +15,8 @@
 package org.ala.spatial.services.web;
 
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
@@ -132,8 +134,12 @@ public class PageController {
         return "service updated";
     }
 
-    @RequestMapping(value = VIEW_ACTION)
-    public ModelAndView viewLogAction(@PathVariable long id) {
+    @RequestMapping(value = {VIEW_ACTION, "/app/view/{id}"})
+    public ModelAndView viewLogAction(@PathVariable long id, HttpServletRequest req) {
+        // authenticate with appid parameter if /app/view/{id}
+        if (req.getRequestURI().contains("/app/view/") && !Utilities.isAppAuth(req)) {
+            return new ModelAndView("message", "msg", "Please authenticate yourself with the ALA system");
+        }
         Action action = actionDao.getActionById(id);
         ModelAndView m = new ModelAndView("actionview");
         m.addObject("action", action);
