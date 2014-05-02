@@ -334,7 +334,7 @@ public class ActionDAOImpl implements ActionDAO {
 ////            service.setId(rs.getLong("id"));
             service.setName(rs.getString("name"));
 //            service.setPrivacy(rs.getBoolean("privacy"));
-//            service.setProcessid(rs.getLong("processid"));
+            service.setProcessid(rs.getLong("processid"));
             service.setSpecieslsid(rs.getString("specieslsid"));
 //            service.setStatus(rs.getString("status"));
 //
