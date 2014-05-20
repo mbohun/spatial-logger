@@ -45,9 +45,7 @@
             src="http://www.ala.org.au/wp-content/themes/ala/scripts/superfish/superfish.js"></script>
     <script language="JavaScript" type="text/javascript"
             src="http://www.ala.org.au/wp-content/themes/ala/scripts/jquery.autocomplete.js"></script>
-    <script language="JavaScript" type="text/javascript"
-            src="http://www.ala.org.au/wp-content/themes/ala/scripts/uservoice.js"></script>
-    <script type="text/javascript">
+        <script type="text/javascript">
 
         //add the indexOf method for IE7
         if (!Array.indexOf) {

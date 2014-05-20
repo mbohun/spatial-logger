@@ -111,8 +111,7 @@
             src="http://www.ala.org.au/wp-content/themes/ala2011/scripts/superfish/superfish.js"></script>
     <script language="JavaScript" type="text/javascript"
             src="http://www.ala.org.au/wp-content/themes/ala2011/scripts/jquery.autocomplete.js"></script>
-    <script language="JavaScript" type="text/javascript"
-            src="http://www.ala.org.au/wp-content/themes/ala2011/scripts/uservoice.js"></script>
+
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/static/includes/dashboard/datatables/jquery.dataTables.min.js"></script>
     <!--<script type="text/javascript" src="${pageContext.request.contextPath}/static/includes/dashboard/datatables/TableTools.min.js"></script>-->
