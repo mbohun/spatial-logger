@@ -16,6 +16,7 @@ package org.ala.spatial.services.utils;
 
 import java.io.FileReader;
 import java.security.Principal;
+import java.text.MessageFormat;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 
@@ -78,11 +79,13 @@ public class Utilities {
     }
 
     public static boolean isAppAuth(HttpServletRequest req) {
-        return req.getParameter("appid") != null && isValidAppId(req.getParameter("appid"));
+        //TODO: untangle appid and api_key
+        return (req.getParameter("appid") != null && isValidAppId(req.getParameter("appid")))
+                || (req.getParameter("api_key") != null && isValidAppId(req.getParameter("api_key")));
     }
 
     private static boolean isValidAppId(String appid) {
-        String url = "http://auth.ala.org.au/apikey/ws/check?apikey=" + appid;
+        String url = MessageFormat.format(getProperty("API_KEY_CHECK_URL_TEMPLATE"), appid);
         try {
             HttpClient client = new HttpClient();
             GetMethod get = new GetMethod(url);
@@ -100,12 +103,6 @@ public class Utilities {
 
         } catch (Exception e) {
             logger.error("failed to validate appid with url: " + url, e);
-        }
-
-        //temporary, also match against properties file
-        System.out.println("webportal.appid=" + getProperty("webportal.appid") + " comparing to: " + appid);
-        if (getProperty("webportal.appid") != null && getProperty("webportal.appid").equals(appid)) {
-            return true;
         }
 
         return false;

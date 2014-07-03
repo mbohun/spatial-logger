@@ -22,20 +22,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!-- Enables clean URLs with JSP views e.g. /welcome instead of /app/welcome -->
-    <!--
-    <filter>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
-    -->
-
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -69,100 +55,21 @@
     <welcome-file-list>
         <welcome-file></welcome-file>
     </welcome-file-list>
-    <!--
-    <listener>
-        <description>db connection</description>
-        <listener-class>org.ala.layers.util.DBConnection</listener-class>
-    </listener>
-    -->
 
-
-    <!-- CAS Authentication related properties -->
-
-    <context-param>
-        <!-- Parameter used by CAS filters -->
-        <param-name>serverName</param-name>
-        <param-value>http://devt.ala.org.au:8080</param-value>
-    </context-param>
-
-    <!-- CAS filter context path - for local development - there is no context for production deployment -->
-    <context-param>
-        <param-name>contextPath</param-name>
-        <param-value>/actions</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>casServerName</param-name>
-        <param-value>https://auth.ala.org.au</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>uriFilterPattern</param-name>
-        <!-- <param-value>/logs, /dashboard, /actions/.+</param-value> -->
-        <param-value>/.+</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>uriExclusionFilterPattern</param-name>
-        <param-value>/log/action, /session/.+, /static/.+, /app/.*</param-value>
-    </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/spring/app-config.xml</param-value>
     </context-param>
 
-    <!-- CAS Authentication Service filters -->
-    <filter>
-        <filter-name>CAS Authentication Filter</filter-name>
-        <filter-class>au.org.ala.cas.client.UriFilter</filter-class>
-        <init-param>
-            <param-name>filterClass</param-name>
-            <param-value>org.jasig.cas.client.authentication.AuthenticationFilter</param-value>
-        </init-param>
-        <init-param>
-            <param-name>casServerLoginUrl</param-name>
-            <param-value>https://auth.ala.org.au/cas/login</param-value>
-        </init-param>
-        <init-param>
-            <param-name>gateway</param-name>
-            <param-value>false</param-value>
-        </init-param>
-    </filter>
+    <!--  Set up the default JNDI entry for the prepertiesFile -->
+    <env-entry>
+        <env-entry-name>configPropFile</env-entry-name>
+        <env-entry-value>/data/actions/config/actions-config.properties</env-entry-value>
+        <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
 
-    <filter>
-        <filter-name>CAS Validation Filter</filter-name>
-        <filter-class>au.org.ala.cas.client.UriFilter</filter-class>
-        <init-param>
-            <param-name>filterClass</param-name>
-            <param-value>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</param-value>
-        </init-param>
-        <init-param>
-            <param-name>casServerUrlPrefix</param-name>
-            <param-value>https://auth.ala.org.au/cas</param-value>
-        </init-param>
-    </filter>
-
-    <filter>
-        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-        <filter-class>au.org.ala.cas.client.UriFilter</filter-class>
-        <init-param>
-            <param-name>filterClass</param-name>
-            <param-value>au.org.ala.cas.client.AlaHttpServletRequestWrapperFilter</param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>CAS Authentication Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>CAS Validation Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>file:/data/actions/config/log4j.properties</param-value>
+    </context-param>
 </web-app>
