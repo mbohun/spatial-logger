@@ -4,11 +4,20 @@
     Author     : ajay
 --%>
 <%@
-        page contentType="text/html; charset=UTF-8" %>
+        page contentType="text/html; charset=UTF-8"
+             import="java.util.Properties,java.io.FileInputStream" %>
+
+<% Properties p = new Properties();
+    try {
+        p.load(new FileInputStream("/data/actions/config/actions-config.properties"));
+        pageContext.setAttribute("serverName",p.getProperty("serverName"));
+    } catch (Exception e){}
+%>
+
 <%@
         taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@
-        taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+            taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@
         taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@
@@ -194,7 +203,11 @@
 <body id="page-spatial" class="">
 </c:otherwise>
 </c:choose>
-<c:set var="returnUrlPath"
-       value="${initParam.serverName}${pageContext.request.requestURI}${not empty pageContext.request.queryString ? '?' : ''}${pageContext.request.queryString}"/>
+
+    <c:set var="returnUrlPath"
+           value="${serverName}${requestScope['javax.servlet.forward.context_path']}${not empty pageContext.request.queryString ?
+    '?' :
+    ''}${pageContext.request.queryString}"/>
+
 <ala:banner returnUrlPath="${returnUrlPath}"/>
 <ala:menu/>
