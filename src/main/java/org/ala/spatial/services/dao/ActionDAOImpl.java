@@ -89,14 +89,14 @@ public class ActionDAOImpl implements ActionDAO {
     @Override
     public List<Action> getActions() {
         logger.info("Getting a list of all actions");
-        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid from actionservices";
+        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid, processid from actionservices";
         return jdbcTemplate.query(sql, new ActionServiceMapper());
     }
 
     @Override
     public List<Action> getActionsByPage(int start, int count) {
         logger.info("Getting a pagged list of actions");
-        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid " +
+        String sql = "select id, email, userip, time, type, sessionid, category1, category2, name, layers, specieslsid, processid " +
                 "from actionservices order by time desc LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, new ActionServiceMapper(), count, start);
     }
