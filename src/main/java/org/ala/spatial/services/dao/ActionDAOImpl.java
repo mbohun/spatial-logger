@@ -14,8 +14,19 @@
  ***************************************************************************/
 package org.ala.spatial.services.dao;
 
-import com.sun.media.sound.AlawCodec;
+import org.ala.spatial.services.dto.Action;
+import org.ala.spatial.services.dto.Breakdown;
+import org.ala.spatial.services.dto.Service;
+import org.ala.spatial.services.dto.Session;
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,20 +34,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
-import org.ala.spatial.services.dto.Action;
-import org.ala.spatial.services.dto.Breakdown;
-import org.apache.log4j.Logger;
-import org.apache.taglibs.standard.extra.spath.SPathFilter;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.ala.spatial.services.dto.Service;
-import org.ala.spatial.services.dto.Session;
 
 /**
  * @author ajay
@@ -134,7 +131,7 @@ public class ActionDAOImpl implements ActionDAO {
     private Service getServiceByProcessid(String processid) {
         logger.info("Getting service action info for processid = " + processid);
         String sql = "select * from services where processid = ?";
-        return jdbcTemplate.queryForObject(sql, new ServiceMapper(), processid);
+        return jdbcTemplate.queryForObject(sql, new ServiceMapper(), Integer.valueOf(processid));
     }
 
     @Override
